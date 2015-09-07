@@ -2,5 +2,11 @@
 @import "bootstrap";
 
 .navbar-brand a {
-  color: #31C038;
+  color: #34a90e;
+}
+
+.navbar-brand a:hover,
+.navbar-brand a:focus {
+  text-decoration: none;
+  color: #40e50b;
 }
