@@ -1,0 +1,24 @@
+!!!
+%html
+	%head
+		%title RailsGame
+		= stylesheet_link_tag "application", :media => "all"
+		= javascript_include_tag 'jquery-1.4.2.min', 'rails', 'application', :media => "all"
+		= javascript_include_tag "jquery.min"
+		= csrf_meta_tag
+	%body
+		.container
+			%nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse{:role => "navigation"}
+				.container
+					.navbar-header
+						%button.navbar-toggle{"data-target" => "#navbar-collapse-target", "data-toggle" => "collapse", :type => "button"}
+							%span.icon-bar
+							%span.icon-bar
+							%span.icon-bar
+						%span.navbar-brand
+							%span.glyphicon.glyphicon-tower
+							= link_to "RailsGames", root_path
+			#navbar-collapse-target.collapse.navbar-collapse
+			%footer.footer
+				%a{:href => "https://listminut.be"} ListMinut
+		= yield

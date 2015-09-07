@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  description: MyText
+  released_at: 2015-09-07 11:56:09
+  platform: MyString
+  company: MyString
+  grade: 1
+
+two:
+  name: MyString
+  description: MyText
+  released_at: 2015-09-07 11:56:09
+  platform: MyString
+  company: MyString
+  grade: 1
