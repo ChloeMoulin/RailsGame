@@ -10,3 +10,26 @@
   text-decoration: none;
   color: #40e50b;
 }
+
+
+.navbar-toggle:focus {
+	background-color:#34a90e
+}
+
+.dropdown-toggle:focus {
+  background-color:#34a90e;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a .caret {
+    border-top-color: #34a90e;
+    border-bottom-color: #34a90e;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a:focus .caret {
+    border-top-color: #000;
+    border-bottom-color: #000;
+}
+
+.navbar-inverse .navbar-nav > .dropdown > a:focus{
+    background-color: #34a90e;
+}
