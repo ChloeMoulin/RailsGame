@@ -24,5 +24,10 @@
   .field
     = f.label :grade
     = f.number_field :grade
+
+  .form-group
+    = f.label :cover
+    = f.file_field :cover
+    
   .actions
     = f.submit 'Save'

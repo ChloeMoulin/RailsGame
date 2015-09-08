@@ -1,23 +1,25 @@
 %p#notice= notice
 
+= image_tag "/covers/#{@game.cover_filename}"
 %p
-  %b Name:
-  = @game.name
+  %h2.titre
+    = @game.name
 %p
-  %b Description:
-  = @game.description
+  %h3.desc
+    = @game.description
 %p
-  %b Released at:
+  %strong Released at:
   = @game.released_at
 %p
-  %b Platform:
+  %strong Platform:
   = @game.platform
 %p
-  %b Company:
+  %strong Company:
   = @game.company
 %p
-  %b Grade:
+  %strong Grade:
   = @game.grade
+
 
 = link_to 'Edit', edit_game_path(@game)
 \|

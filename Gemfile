@@ -14,6 +14,7 @@ gem 'devise'
 
 gem 'cancan'
 
+gem 'carrierwave'
 
 
 # Bundle edge Rails instead:

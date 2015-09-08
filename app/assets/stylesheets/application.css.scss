@@ -52,12 +52,14 @@ button.btn:focus {
   border-color: #34a90e;
 }
 
-a {
+a,
+a:active {
   
   color: #34a90e; 
 }
 
-a:hover {
+a:hover,
+a:focus {
   text-decoration: none;
   color: #40e50b;
 }
