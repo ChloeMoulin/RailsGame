@@ -1,24 +1,27 @@
 %p#notice= notice
 
-= image_tag "/covers/#{@game.cover_filename}"
-%p
-  %h2.titre
-    = @game.name
-%p
-  %h3.desc
-    = @game.description
-%p
-  %strong Released at:
-  = @game.released_at
-%p
-  %strong Platform:
-  = @game.platform
-%p
-  %strong Company:
-  = @game.company
-%p
-  %strong Grade:
-  = @game.grade
+.clearfix
+  = image_tag(@game.cover.url, :id => "cover", :class => "pull-left gap-right img-rounded gap-top") if @game.cover? 
+  .container
+    .games
+      %p
+        %h2.titre
+          = @game.name
+      %p
+        %h3.desc
+          = @game.description
+      %p
+        %strong Released at:
+        = @game.released_at
+      %p
+        %strong Platform:
+        = @game.platform
+      %p
+        %strong Company:
+        = @game.company
+      %p
+        %strong Grade:
+        = @game.grade
 
 
 = link_to 'Edit', edit_game_path(@game)

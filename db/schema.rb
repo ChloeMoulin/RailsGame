@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150908124935) do
+ActiveRecord::Schema.define(:version => 20150908114853) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -20,9 +20,9 @@ ActiveRecord::Schema.define(:version => 20150908124935) do
     t.datetime "released_at"
     t.integer  "grade"
     t.string   "platform"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-    t.string   "cover_filename"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.string   "cover"
   end
 
   create_table "profiles", :force => true do |t|
