@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  country: MyString
+  age: 1
+  score: 1
+  victories: 1
+  defeats: 1
+  score: 1
+  ratio: 1.5
+
+two:
+  user_id: 1
+  country: MyString
+  age: 1
+  score: 1
+  victories: 1
+  defeats: 1
+  score: 1
+  ratio: 1.5

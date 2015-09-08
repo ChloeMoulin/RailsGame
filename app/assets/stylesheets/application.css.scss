@@ -1,6 +1,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+
+
 .navbar-brand a {
   color: #34a90e;
 }
@@ -32,4 +34,35 @@
 
 .navbar-inverse .navbar-nav > .dropdown > a:focus{
     background-color: #34a90e;
+}
+
+body {
+  padding-top: 50px;
+}
+
+button.btn,
+button.btn:active {
+  background-color:#34a90e; 
+  border-color: #34a90e;
+}
+
+button.btn:hover,
+button.btn:focus {
+  background-color: #40e50b;
+  border-color: #34a90e;
+}
+
+a {
+  
+  color: #34a90e; 
+}
+
+a:hover {
+  text-decoration: none;
+  color: #40e50b;
+}
+
+.form-control:focus {
+  border-color: #34a90e;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(64, 229, 11, 1);
 }

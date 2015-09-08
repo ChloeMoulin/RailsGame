@@ -1,8 +1,9 @@
 RailsGame::Application.routes.draw do
-  root :to => "games#index"
+  root :to => "Games#index"
   resources :games
   resources :users
   resource :session
+  resources :profiles
 
   match '/login' => "sessions#new", :as => "login"
   match '/logout' => "sessions#destroy", :as => "logout"
