@@ -1,4 +1,5 @@
 class Game < ActiveRecord::Base
+	has_and_belongs_to_many :tournaments
 	attr_accessible :company, :description, :grade, :name, :platform, :released_at, :cover_filename, :cover
 
 	validates :company, :presence => true
@@ -11,3 +12,4 @@ class Game < ActiveRecord::Base
 	mount_uploader :cover, CoverUploader 
 
 end
+	
