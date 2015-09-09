@@ -1,0 +1,32 @@
+%h1 Listing Tournaments
+
+%table.table
+  %tr
+    %th Name
+    %th Description
+    %th Date
+    %th Place
+    %th Max Player
+    %th Games
+    %th
+    %th
+    %th
+
+  - @tournaments.each do |tournament|
+    %tr
+      %td= tournament.name
+      %td= tournament.description
+      %td= tournament.date
+      %td= tournament.place
+      %td= tournament.max_player
+      %td
+        %ul
+        - tournament.games.each do |game|
+          %li= link_to game.name, game
+      %td= link_to 'Show', tournament
+      %td= link_to 'Edit', edit_tournament_path(tournament)
+      %td= link_to 'Destroy', tournament, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Tournament', new_tournament_path

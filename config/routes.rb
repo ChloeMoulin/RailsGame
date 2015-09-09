@@ -9,6 +9,11 @@ RailsGame::Application.routes.draw do
   match '/login' => "sessions#new", :as => "login"
   match '/logout' => "sessions#destroy", :as => "logout"
 
+  match 'tournaments/:id/register' => 'tournaments#register', as: :tournaments_register
+
+
+
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

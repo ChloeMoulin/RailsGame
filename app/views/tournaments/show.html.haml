@@ -1,0 +1,31 @@
+%p#notice= notice
+
+.container
+  .games
+    %p
+      %h2.titre
+        = @tournament.name  
+    %p
+      %h3.desc
+        = @tournament.description
+    %p
+      %strong Date:
+      = @tournament.date
+    %p
+      %strong Place:
+      = @tournament.place
+    %p
+      %strong Maximal number of players:
+      = @tournament.max_player
+    %p
+      %strong Games:
+      %ul
+        - @tournament.games.each do |game|
+          %li= link_to game.name, game
+
+  - if logged_in?
+    = link_to "Register for this tournament", tournaments_register_path(:id => @tournament.id)
+
+
+= link_to 'Edit', edit_tournament_path(@tournament)
+= link_to 'Back', tournaments_path

@@ -1,6 +1,7 @@
 require 'digest'
 class User < ActiveRecord::Base
 	has_one :profile
+	has_and_belongs_to_many :tournaments
 	after_create :create_profile
 
 	attr_accessible :email, :hashed_password, :role, :username, :password, :password_confirmation
