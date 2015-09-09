@@ -19,6 +19,14 @@
 							= link_to "Rails Games", root_path
 					#navbar-collapse-target.collapse.navbar-collapse
 						%ul.nav.navbar-nav.navbar-right
+							%li.dropdown
+								%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+									Tournaments
+									%b.caret
+								%ul.dropdown-menu
+									%li= link_to "View All",tournaments_path
+									- if logged_in?
+										%li= "My Tournaments"
 							- if logged_in?
 								%li.dropdown
 									%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}

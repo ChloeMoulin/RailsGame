@@ -1,5 +1,21 @@
 class TournamentsController < ApplicationController
 
+
+	respond_to :html
+
+	def index
+		@tournaments_and_games = Hash.new
+		@tournaments = Tournament.all
+		@tournaments.each do |tournament|
+			@tournaments_and_games[tournament] = Array.new
+			tournament.game_ids.each do |game_id|
+				@tournaments_and_games[tournament] << Game.find_by_id(game_id).name
+			end
+		end
+
+    respond_with(@tournaments)
+  end
+
 	def new 
 		@tournament = Tournament.new
 		@games = Game.all
