@@ -1,35 +1,69 @@
 %h1 Listing Tournaments
 
-- @tournaments.each do |tournament|
-  .panel.panel-primary
-    .panel-heading
-      = tournament.name
-    .panel-body
-      .tournament_infos
-        %p
-          %span.glyphicon.glyphicon-calendar
-          Date:
-          = tournament.date
+- @tournaments_hash.each do |tournament,boolean|
+  - if boolean
+    .panel.panel-primary
+      .panel-heading
+        = tournament.name
+      .panel-body
+        .tournament_infos
+          %p
+            %span.glyphicon.glyphicon-calendar
+            Date:
+            = tournament.date
 
-        %p
-          %span.glyphicon.glyphicon-pushpin
-          Place:
-          = tournament.place
-        %p
-          %span.glyphicon.glyphicon-user
-          Max Player:
-          = tournament.max_player
+          %p
+            %span.glyphicon.glyphicon-pushpin
+            Place:
+            = tournament.place
+          %p
+            %span.glyphicon.glyphicon-user
+            Max Player:
+            = tournament.max_player
 
-      .games_logo
-        - @logos = tournament.games.first(5)
-        - @logos.each do |logo|
-          = image_tag(logo.cover.url, :id => "cover", :class => "img-rounded") if logo.cover?
+        .games_logo
+          - @logos = tournament.games.first(5)
+          - @logos.each do |logo|
+            = image_tag(logo.cover.url, :id => "cover", :class => "img-rounded") if logo.cover?
 
-      .tournament_button
-        = link_to('Learn more', tournament, :class => "btn btn-primary" )
-        - if logged_in?
-          = link_to("Register now !", tournaments_register_path(:id => tournament.id), :class => "btn btn-primary")
-        
+        .tournament_button
+          = link_to('Learn more', tournament, :class => "btn btn-primary" )
+          - if logged_in? && boolean
+            = link_to("Register now !", tournaments_register_path(:id => tournament.id), :class => "btn btn-primary")
+  - else
+    .panel.panel-success
+      .panel-heading
+        = tournament.name
+      .panel-body
+        .tournament_infos
+          %p
+            %span.glyphicon.glyphicon-calendar
+            Date:
+            = tournament.date
+
+          %p
+            %span.glyphicon.glyphicon-pushpin
+            Place:
+            = tournament.place
+          %p
+            %span.glyphicon.glyphicon-user
+            Max Player:
+            = tournament.max_player
+
+        .games_logo
+          - @logos = tournament.games.first(5)
+          - @logos.each do |logo|
+            = image_tag(logo.cover.url, :id => "cover", :class => "img-rounded") if logo.cover?
+
+        .tournament_button
+          = link_to('Learn more', tournament, :class => "btn btn-primary" )
+          - if logged_in? && boolean
+            = link_to("Register now !", tournaments_register_path(:id => tournament.id), :class => "btn btn-primary")
+
+    
 
 
 
+
+
+ 

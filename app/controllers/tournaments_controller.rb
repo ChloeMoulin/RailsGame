@@ -5,7 +5,16 @@ class TournamentsController < ApplicationController
 
 	def index
 		@tournaments = Tournament.all
-   		 respond_with(@tournaments)
+		@tournaments_hash = Hash.new
+		@tournaments.each do |tournament|
+			if tournament.date < Date.today || tournament.max_player <= tournament.users.count
+				@tournaments_hash[tournament] = false
+			else
+				@tournaments_hash[tournament] = true
+			end
+		end
+		@tournaments_hash = @tournaments_hash.sort_by {|a,b| [(!b).to_s,a[:date]]}
+   		 respond_with(@tournaments_hash)
   	end
 
 	def show

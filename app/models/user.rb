@@ -2,6 +2,10 @@ require 'digest'
 class User < ActiveRecord::Base
 	has_one :profile
 	has_many :matches
+
+	has_many :played_1, :foreign_key => "player_1_id", :class_name => "Match"
+    has_many :played_2, :foreign_key => "player_2_id", :class_name => "Match"
+
 	has_and_belongs_to_many :tournaments
 	after_create :create_profile
 

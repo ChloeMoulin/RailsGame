@@ -17,7 +17,10 @@ class ProfilesController < ApplicationController
 		@profile = @user.profile
 		@tournaments = @user.tournaments
 		@games = Array.new
-		@user.matches do |match|
+		@user.played_1.each do |match|
+			@games << match.game
+		end
+		@user.played_2.each do |match|
 			@games << match.game
 		end
 		@games.uniq!
