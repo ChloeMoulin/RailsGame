@@ -75,13 +75,15 @@ class TournamentsController < ApplicationController
  		bool = false
 
  		@tournament.matches.each do |match|
- 			if match.game_id = :game_id && (match.player_1_id = nil && player_2_id != @user.id)
- 				match.player_1_id = @user.id
+ 			if match.game = @game && (match.player_1 = nil && player_2 != @user)
+ 				match.player_1 = @user
+ 				@user.matches << match
  				match.save
  				bool = true
  				break
- 			elsif match.game_id = :game_id && (match.player_2_id = nil && player_1_id != @user.id)
- 				match.player_2_id = @user.id
+ 			elsif match.game = @game && (match.player_2 = nil && player_1 != @user)
+ 				match.player_2 = @user
+ 				@user.matches << match
  				match.save
  				bool = true
  				break
@@ -89,11 +91,15 @@ class TournamentsController < ApplicationController
  		end
  		if !bool
  			@match = Match.new
- 			@match.player_1_id = @user.id
+ 			@match.player_1 = @user
+ 			@user.matches << @match
  			@tournament.matches << @match
+ 			@tournament.save
  			@game.matches << @match
+ 			@game.save
  		end
 
+ 		@user.save
  		redirect_to @tournament, :notice => "You've been added to a match !"
  	end
 

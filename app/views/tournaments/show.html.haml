@@ -1,34 +1,65 @@
 %p#notice= notice
 
 .container
-  .games
-    %p
-      %h2.titre
-        = @tournament.name  
-    %p
-      %h3.desc
-        = @tournament.description
-    %p
-      %strong Date:
-      = @tournament.date
-    %p
-      %strong Place:
-      = @tournament.place
-    %p
-      %strong Maximal number of players:
-      = @tournament.max_player
-    %p
-      %strong Games:
-      %table
-        - @tournament.games.each do |game|
-          %tr
-            %td= link_to game.name, game           
-            - if logged_in? && current_user.tournaments.include?(@tournament)
-              %td= link_to "Match !", tournaments_register_match_path(:id => @tournament.id, :game_id => game.id)
+  / ----
+  #content
+    %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
+      %li.active
+        %a{"data-toggle" => "tab", :href => "#about_the_tournament"} About the tournament
+      %li
+        %a{"data-toggle" => "tab", :href => "#games_and_matches"} Games and matches
+      %li
+        %a{"data-toggle" => "tab", :href => "#ranking"} Ranking
 
-  - if logged_in?
-    = link_to "Register for this tournament", tournaments_register_path(:id => @tournament.id)
+    .tab-content
+      #about_the_tournament.tab-pane.active
+        .container
+          .games
+            %p
+              %h2.titre
+                = @tournament.name  
+            %p
+              %h3.desc
+                = @tournament.description
+            %p
+              %strong Date:
+              = @tournament.date
+            %p
+              %strong Place:
+              = @tournament.place
+            %p
+              %strong Maximal number of players:
+              = @tournament.max_player        
+            - if logged_in?
+              = link_to "Register for this tournament", tournaments_register_path(:id => @tournament.id)
+      #games_and_matches.tab-pane
+        %p
+          %strong Games:
+          %table.table.table-hover.table-condensed
+            %thead
+              %tr
+                %th Name
+                %th Register for a match !
+
+            - @tournament.games.each do |game|
+              %tr
+                %td= link_to game.name, game           
+                - if logged_in? && current_user.tournaments.include?(@tournament)
+                  %td= link_to "Match !", tournaments_register_match_path(:id => @tournament.id, :game_id => game.id)
+              
+
+      #ranking.tab-pane
+        %p
+          %strong Ranking:
+          %table.table.table-hover.table-condensed
+            %thead
+              %tr
+                %th Rank
+                %th Player
+                %th Victories
 
 
-= link_to 'Edit', edit_tournament_path(@tournament)
-= link_to 'Back', tournaments_path
+
+
+
+
