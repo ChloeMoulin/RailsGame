@@ -52,6 +52,22 @@ button.btn:focus {
   border-color: #34a90e;
 }
 
+.btn.btn-primary,
+.btn.btn-primary:active {
+  background-color:#34a90e; 
+  border-color: #34a90e;
+}
+
+
+
+.thumbnail { 
+  min-height:600px; 
+  height:600px;
+  max-height :500px;
+  overflow: hidden;
+  text-overflow: ellipsis; 
+  }
+
 a,
 a:active {
   
@@ -70,8 +86,8 @@ a:focus {
 }
 
 img#cover {
-    width:200px; 
-    height: auto;
+    height:240px; 
+    width: auto;
 }
 
 
@@ -81,4 +97,47 @@ img#cover {
 
 .gap-right {
   margin-top: 2%; 
+}
+
+.panel-primary > .panel-heading {
+  background-color: #34a90e;
+  border-color: #34a90e;
+}
+
+.panel-primary {
+  border-color: #34a90e;
+}
+
+.tournament_infos {
+  float:left;
+  width:40%;
+}
+.games_logo {
+  margin-left:40%;
+
+}
+.games_logo img#cover {
+    display: inline-block;
+    height:50px; 
+    width: auto;
+}
+
+.tournament_button {
+
+  margin-left:85%;
+}
+
+.tournament_button a {
+  margin-top:10%;
+  display: block;
+  width:150px;
+}
+
+.caption_infos {
+  float:top;
+  height:50%;
+}
+
+.caption_button {
+  margin-top:50;
 }

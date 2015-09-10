@@ -1,32 +1,35 @@
 %h1 Listing Tournaments
 
-%table.table
-  %tr
-    %th Name
-    %th Description
-    %th Date
-    %th Place
-    %th Max Player
-    %th Games
-    %th
-    %th
-    %th
+- @tournaments.each do |tournament|
+  .panel.panel-primary
+    .panel-heading
+      = tournament.name
+    .panel-body
+      .tournament_infos
+        %p
+          %span.glyphicon.glyphicon-calendar
+          Date:
+          = tournament.date
 
-  - @tournaments.each do |tournament|
-    %tr
-      %td= tournament.name
-      %td= tournament.description
-      %td= tournament.date
-      %td= tournament.place
-      %td= tournament.max_player
-      %td
-        %ul
-        - tournament.games.each do |game|
-          %li= link_to game.name, game
-      %td= link_to 'Show', tournament
-      %td= link_to 'Edit', edit_tournament_path(tournament)
-      %td= link_to 'Destroy', tournament, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %p
+          %span.glyphicon.glyphicon-pushpin
+          Place:
+          = tournament.place
+        %p
+          %span.glyphicon.glyphicon-user
+          Max Player:
+          = tournament.max_player
 
-%br
+      .games_logo
+        - @logos = tournament.games.first(5)
+        - @logos.each do |logo|
+          = image_tag(logo.cover.url, :id => "cover", :class => "img-rounded") if logo.cover?
 
-= link_to 'New Tournament', new_tournament_path
+      .tournament_button
+        = link_to('Learn more', tournament, :class => "btn btn-primary" )
+        - if logged_in?
+          = link_to("Register now !", tournaments_register_path(:id => tournament.id), :class => "btn btn-primary")
+        
+
+
+

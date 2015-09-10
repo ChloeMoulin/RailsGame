@@ -11,6 +11,8 @@ class TournamentsController < ApplicationController
 	def show
 		@tournament = Tournament.find(params[:id])
    		 respond_with(@tournament)
+
+
 	end
 
 	def new 
@@ -102,5 +104,7 @@ class TournamentsController < ApplicationController
  		@user.save
  		redirect_to @tournament, :notice => "You've been added to a match !"
  	end
+
+
 
 end

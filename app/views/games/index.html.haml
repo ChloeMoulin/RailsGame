@@ -6,13 +6,19 @@
     .col-md-offset
       - @games.each do |game|
         .col-md-3.classeImage
-          = link_to game.name, game
           .clearfix
-            .img-thumbnail
+            .thumbnail
               = image_tag(game.cover.url, :id => "cover", :class => "img-rounded") if game.cover?
+              .caption
+                .caption_infos
+                  %h3
+                    = game.name
+                  %p 
+                    = game.description
+                .caption_button                  
+                  = link_to('Learn more', game, :class => "btn btn-primary" )
+
+
           %td= link_to 'Edit', edit_game_path(game)
           %td= link_to 'Destroy', game, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-    
-
 
