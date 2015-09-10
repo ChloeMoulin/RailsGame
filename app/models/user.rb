@@ -1,6 +1,7 @@
 require 'digest'
 class User < ActiveRecord::Base
 	has_one :profile
+	has_many :matches
 	has_and_belongs_to_many :tournaments
 	after_create :create_profile
 
@@ -45,6 +46,8 @@ class User < ActiveRecord::Base
 	private
 		def create_profile
 			self.build_profile
+			self.profile.user_id = self.id
+			self.profile.save
 		end
 
 end

@@ -19,9 +19,12 @@
       = @tournament.max_player
     %p
       %strong Games:
-      %ul
+      %table
         - @tournament.games.each do |game|
-          %li= link_to game.name, game
+          %tr
+            %td= link_to game.name, game           
+            - if logged_in? && current_user.tournaments.include?(@tournament)
+              %td= link_to "Match !", tournaments_register_match_path(:id => @tournament.id, :game_id => game.id)
 
   - if logged_in?
     = link_to "Register for this tournament", tournaments_register_path(:id => @tournament.id)

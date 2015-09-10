@@ -10,6 +10,7 @@ RailsGame::Application.routes.draw do
   match '/logout' => "sessions#destroy", :as => "logout"
 
   match 'tournaments/:id/register' => 'tournaments#register', as: :tournaments_register
+  match 'tournaments/:id/register_match/:id' => 'tournaments#register_match', as: :tournaments_register_match
 
 
 

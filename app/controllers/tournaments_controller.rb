@@ -67,4 +67,34 @@ class TournamentsController < ApplicationController
 			end
 		end
  	end
+
+ 	def register_match
+ 		@tournament = Tournament.find(params[:id])
+ 		@game = Game.find(params[:game_id])
+ 		@user = current_user
+ 		bool = false
+
+ 		@tournament.matches.each do |match|
+ 			if match.game_id = :game_id && (match.player_1_id = nil && player_2_id != @user.id)
+ 				match.player_1_id = @user.id
+ 				match.save
+ 				bool = true
+ 				break
+ 			elsif match.game_id = :game_id && (match.player_2_id = nil && player_1_id != @user.id)
+ 				match.player_2_id = @user.id
+ 				match.save
+ 				bool = true
+ 				break
+ 			end
+ 		end
+ 		if !bool
+ 			@match = Match.new
+ 			@match.player_1_id = @user.id
+ 			@tournament.matches << @match
+ 			@game.matches << @match
+ 		end
+
+ 		redirect_to @tournament, :notice => "You've been added to a match !"
+ 	end
+
 end

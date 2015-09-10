@@ -8,6 +8,7 @@ class UsersController < ApplicationController
 
 	def create
 		@user = User.new(params[:user])
+		@user.profile = Profile.create
 		if @user.save
 			redirect_to games_path, :notice => 'User successfully added.'
 		else
