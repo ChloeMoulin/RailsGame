@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
 
-	before_filter :ratio_calc, only: [:create, :save]
+	before_filter :ratio_calc, only: [:show]
 	before_filter :authenticate, :only => [:edit, :update]
 	before_filter :load_user, :only => [:edit, :update, :show]
 
@@ -45,16 +45,18 @@ class ProfilesController < ApplicationController
 
 		def ratio_calc
 			@profile = current_user.profile
+			ratio = 0
 			if @profile.defeats.blank? &&  @profile.victories.blank?
-				@profile.ratio = 0.to_sym
+				ratio = 0
 			else
-				@profile.ratio = (@profile.victories.to_f / (@profile.defeats.to_f + @profile.victories.to_f)).to_i
+				ratio = (@profile.victories.to_f / (@profile.defeats.to_f + @profile.victories.to_f)).to_i
 			end
-			if @profile.update_attributes(params[:profile])
-				redirect_to @profile, :notice => 'New Ratio updated !'
-			else
+			@profile.update_attributes(:ratio => ratio)
 
-		end
 
-end
+		def games_params
+      		params.require(:profile).permit(:avatar)
+    	end
+
+	end
 end

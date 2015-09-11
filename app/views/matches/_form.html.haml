@@ -1,0 +1,18 @@
+.well
+	= form_for @match, :html => {:class => 'form-horizontal'} do |f|
+		.form-group
+			= f.label :player_1_score, @match.player_1.username, :class => 'col-sm-5 control-label required'
+			.col-sm-4
+				= f.number_field :player_1_score, :class => 'form-control'
+		.form-group
+			= f.label :player_2_score, @match.player_2.username, :class => 'col-sm-5 control-label required'
+			.col-sm-4
+				= f.number_field :player_2_score, :class => 'form-control'
+		.form-group
+			.col-sm-offset-5.col-sm-3
+				= button_tag(type: 'submit', class: "btn btn-default btn-primary") do
+					%span.glyphicon.glyphicon-floppy-disk
+					Save
+
+		
+

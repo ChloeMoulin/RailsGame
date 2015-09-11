@@ -33,6 +33,11 @@ class User < ActiveRecord::Base
 		self.hashed_password == encrypt(password)
 	end
 
+	def is?( requested_role )
+    	self.role == requested_role.to_s
+  	end
+
+
 	protected
 		def encrypt_new_password
 			return if password.blank?

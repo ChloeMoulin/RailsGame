@@ -82,19 +82,20 @@ class TournamentsController < ApplicationController
  	def register_match
  		@tournament = Tournament.find(params[:id])
  		@game = Game.find(params[:game_id])
+
  		@user = current_user
  		bool = false
 
  		@tournament.matches.each do |match|
- 			if match.game = @game && (match.player_1 = nil && player_2 != @user)
+ 			if match.game == @game && match.player_1 == nil && match.player_2 != @user
  				match.player_1 = @user
- 				@user.matches << match
+ 				@user.played_1 << match
  				match.save
  				bool = true
  				break
- 			elsif match.game = @game && (match.player_2 = nil && player_1 != @user)
+ 			elsif match.game == @game && match.player_2 == nil && match.player_1 != @user
  				match.player_2 = @user
- 				@user.matches << match
+ 				@user.played_2 << match
  				match.save
  				bool = true
  				break
@@ -102,12 +103,12 @@ class TournamentsController < ApplicationController
  		end
  		if !bool
  			@match = Match.new
- 			@match.player_1 = @user
- 			@user.matches << @match
- 			@tournament.matches << @match
- 			@tournament.save
  			@game.matches << @match
- 			@game.save
+ 			@tournament.matches << @match
+ 			@match.player_1 = @user
+ 			@user.played_1 << @match
+ 			
+ 			
  		end
 
  		@user.save

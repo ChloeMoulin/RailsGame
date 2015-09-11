@@ -28,8 +28,10 @@
 
         .tournament_button
           = link_to('Learn more', tournament, :class => "btn btn-primary" )
-          - if logged_in? && boolean
+          - if logged_in? && boolean && !current_user.tournaments.include?(tournament)
             = link_to("Register now !", tournaments_register_path(:id => tournament.id), :class => "btn btn-primary")
+          - elsif logged_in? && current_user.tournaments.include?(tournament)
+            %p You've already registered !
   - else
     .panel.panel-success
       .panel-heading

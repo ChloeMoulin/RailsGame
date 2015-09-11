@@ -18,7 +18,7 @@
                 .caption_button                  
                   = link_to('Learn more', game, :class => "btn btn-primary" )
 
-
-          %td= link_to 'Edit', edit_game_path(game)
+          - if can? :create, Game         
+            %td= link_to 'Edit', edit_game_path(game)
           %td= link_to 'Destroy', game, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

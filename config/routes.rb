@@ -5,6 +5,7 @@ RailsGame::Application.routes.draw do
   resource :session
   resources :profiles
   resources :tournaments
+  resources :matches
 
   match '/login' => "sessions#new", :as => "login"
   match '/logout' => "sessions#destroy", :as => "logout"

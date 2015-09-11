@@ -8,6 +8,7 @@
 
 user = User.create 	:username => 'Chloe',
 					:email => 'chloe.moulin42@free.fr',
-					:role => 'ADMIN',
-					:password => 'chocolat',
-					:password_confirmation => 'chocolat'
+					:role => 'admin',
+					:password => 'chocolat42230',
+					:password_confirmation => 'chocolat42230',
+					:hashed_password => 'da7d8268a344f696064f5db974c02ef4d51327b0'

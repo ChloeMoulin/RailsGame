@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+
   before_filter :set_game, only: [:show, :edit, :update, :destroy]
 
   respond_to :html

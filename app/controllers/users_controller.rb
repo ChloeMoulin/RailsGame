@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 
+
 	before_filter :authenticate, :only => [:edit, :update]
 
 	def new
@@ -9,6 +10,7 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(params[:user])
 		@user.profile = Profile.create
+		@user.role = "user"
 		if @user.save
 			redirect_to games_path, :notice => 'User successfully added.'
 		else

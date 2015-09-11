@@ -12,6 +12,7 @@
   #personal_informations.tab-pane.active
     .table_responsive
       .clearfix
+        = image_tag(@profile.avatar.url, :id => "avatar", :class => "pull-left gap-right img-rounded gap-top") if @profile.avatar? 
         .container
           .games
             %p
@@ -67,7 +68,6 @@
         %thead
           %tr
             %th Name
-            %th Description
             %th Released at
             %th Platform
             %th Company
@@ -77,7 +77,6 @@
       - @games.each do |game|
         %tr
           %td= game.name
-          %td= game.description
           %td= game.released_at
           %td= game.platform
           %td= game.company
