@@ -1,7 +1,6 @@
 class GamesController < ApplicationController
 
   before_filter :set_game, only: [:show, :edit, :update, :destroy]
-
   respond_to :html
 
   def index
@@ -43,6 +42,6 @@ class GamesController < ApplicationController
     end
 
     def games_params
-      params.require(:game).permit(:company, :description, :grade, :name, :platform, :released_at, :cover)
+      params.require(:game).permit(:name, :description, :company, :grade, :platform, :released_at, :cover)
     end
 end
