@@ -2,7 +2,7 @@ class Profile < ActiveRecord::Base
 
   attr_accessible :age, :country, :defeats, :ratio, :score, :user_id, :victories, :avatar
 
-  belongs_to :user
+  belongs_to :user, touch: true
 
   before_save :ratio_calc
 
@@ -29,6 +29,8 @@ class Profile < ActiveRecord::Base
   def loose
     self.increment_defeats
     self.save
+
+    self.increment!(:defeats)
   end
 
   def draw
@@ -45,3 +47,4 @@ class Profile < ActiveRecord::Base
   end
 
 end
+
