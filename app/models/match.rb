@@ -3,6 +3,7 @@ class Match < ActiveRecord::Base
   attr_accessible :player_1_score, :player_2_score
   after_commit :calc_points_for_players
 
+
   belongs_to :player_1, :class_name => 'User'
   belongs_to :player_2, :class_name => 'User'
   belongs_to :game
@@ -50,7 +51,7 @@ class Match < ActiveRecord::Base
 
     elsif self.player_2 == nil && self.player_1 != user
       self.player_2 = user
-      @user.played_2 << match
+      user.played_2 << self
       self.save
       return true
     end     

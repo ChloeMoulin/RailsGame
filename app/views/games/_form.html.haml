@@ -15,7 +15,6 @@
       = f.label :description, :class => 'col-sm-5 control-label required'
       .col-sm-4
         = f.text_area :description, :class => 'form-control', :maxlength => 380, :rows => 2
-        %p#counter
     .form-group
       = f.label :released_at, :class => 'col-sm-5 control-label required'
       .col-sm-4
@@ -43,17 +42,3 @@
         = button_tag(type: 'submit', class: "btn btn-default btn-primary") do
           %span.glyphicon.glyphicon-floppy-disk
           Save
-
-:javascript
-  $('#game_description').keyup(function() {
-
-    var caracNumber = $(this).val().length;
-
-
-    var msg = ' ' + caracNumber + ' remaining caracters';
-    $('#counter').text(msg);
-    if (caracNumber  0) { $('#counter').addClass("bad"); } else { $('#counter').removeClass("bad"); }
-
-    })
-
-  });

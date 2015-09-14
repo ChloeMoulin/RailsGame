@@ -4,7 +4,7 @@ class Profile < ActiveRecord::Base
 
   belongs_to :user
 
-  before_commit :ratio_calc
+  before_save :ratio_calc
 
   mount_uploader :avatar, CoverUploader
 
@@ -58,7 +58,6 @@ class Profile < ActiveRecord::Base
     else
       ratio = (self.victories.to_f / (self.defeats.to_f + self.victories.to_f)).to_f
     end
-    self.save
   end
 
 end

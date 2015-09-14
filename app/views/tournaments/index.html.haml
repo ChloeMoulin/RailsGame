@@ -1,7 +1,11 @@
 %h1 Listing Tournaments
 
 - @tournaments.each do |tournament|
-  .panel.panel-primary
+  - if tournament.date > Date.today || tournament.max_player <= tournament.users.count
+    - style = "panel-primary"
+  - else
+    -style = "panel-success"   
+  .panel{:class => style}
     .panel-heading
       = tournament.name
     .panel-body
@@ -27,7 +31,7 @@
 
       .tournament_button
         = link_to('Learn more', tournament, :class => "btn btn-primary" )
-        - if logged_in? && !current_user.tournaments.include?(tournament)
+        - if logged_in? && !current_user.tournaments.include?(tournament) && style == "panel-primary"
           = link_to("Register now !", tournaments_register_path(:id => tournament.id), :class => "btn btn-primary")
         - elsif logged_in? && current_user.tournaments.include?(tournament)
           %p You've already registered !
