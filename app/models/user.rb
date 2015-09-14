@@ -4,10 +4,12 @@ class User < ActiveRecord::Base
 	has_many :matches
 
 	has_many :played_1, :foreign_key => "player_1_id", :class_name => "Match"
-    has_many :played_2, :foreign_key => "player_2_id", :class_name => "Match"
+  has_many :played_2, :foreign_key => "player_2_id", :class_name => "Match"
 
 	has_and_belongs_to_many :tournaments
-	after_create :create_profile
+
+
+  before_create :create_profile
 
 	attr_accessible :email, :hashed_password, :role, :username, :password, :password_confirmation
   	attr_accessor :password, :password_confirmation
@@ -17,7 +19,7 @@ class User < ActiveRecord::Base
 
   	validates :username, :uniqueness => true
 
-  	validates :password, :length => {:within => 10..50},
+  	validates :password, :length => {:within => 1..50},
   						:confirmation => true,
   						:presence => true,
   						:if => :password_required?
@@ -53,10 +55,9 @@ class User < ActiveRecord::Base
 		end
 
 	private
-		def create_profile
-			self.build_profile
-			self.profile.user_id = self.id
-			self.profile.save
-		end
+	def define_role
+    self.build_profile
+		self.role = "user"
+	end
 
 end

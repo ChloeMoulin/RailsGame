@@ -25,21 +25,15 @@ class Tournament < ActiveRecord::Base
     Match.create_new_match(self,user,game)
   end
 
-  def self.order_for_index
-    tournaments = Tournament.all
-    tournaments.sort_by { |t| t[:date]}
+  def can_register?
+    self.date < Date.today || self.max_player <= self.users.count
+  end
 
+  def self.order_for_index
+    tournaments = Tournament.order("date desc")
     tournaments_can_register = Array.new
     tournaments_cannot_register = Array.new
-
-    tournaments.each do |tournament|
-      if tournament.date < Date.today || tournament.max_player <= tournament.users.count
-        tournaments_cannot_register << tournament
-      else
-        tournaments_can_register << tournament
-      end
-    end
-
+    tournaments.each{|tournament| tournament.can_register? ? tournaments_cannot_register << tournament : tournaments_can_register << tournament}
     return (tournaments_can_register << tournaments_cannot_register).flatten!
   end
 

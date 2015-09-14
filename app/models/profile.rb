@@ -2,7 +2,7 @@ class Profile < ActiveRecord::Base
 
   attr_accessible :age, :country, :defeats, :ratio, :score, :user_id, :victories, :avatar
 
-  belongs_to :user
+  belongs_to :user, touch: true
 
   before_save :ratio_calc
 
@@ -29,6 +29,8 @@ class Profile < ActiveRecord::Base
   def loose
     self.increment_defeats
     self.save
+
+    self.increment!(:defeats)
   end
 
   def draw
@@ -37,27 +39,12 @@ class Profile < ActiveRecord::Base
   end
 
   def prepare_games_list
-    user = self.user
-    tourmanents = user.tournaments
-    games = Array.new
-
-     user.played_1.each do |match|
-      games << match.game
-    end
-    user.played_2.each do |match|
-      games << match.game
-    end
-
-    return games.uniq!
+    Games.joins(:matches).where(:matches => {:played_1_id => self.user.id, :player_2_id.self.user.id}).uniq_by(&:game_id)
   end
 
   def ratio_calc   
-    ratio = 0
-    if self.defeats.blank? &&  self.victories.blank?
-      ratio = 0
-    else
-      ratio = (self.victories.to_f / (self.defeats.to_f + self.victories.to_f)).to_f
-    end
+    self.defeats.blank? &&  self.victories.blank? ? 0 : (self.victories.to_f / (self.defeats.to_f + self.victories.to_f)).to_f
   end
 
 end
+
