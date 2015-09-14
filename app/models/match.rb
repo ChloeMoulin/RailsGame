@@ -31,7 +31,7 @@ class Match < ActiveRecord::Base
       profile_2.win
         
 
-    elsif self.player_2_score == self.player_1_score
+    else
       self.player_1_points = 1
       self.player_2_points = 1
 

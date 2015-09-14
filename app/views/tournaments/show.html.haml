@@ -71,6 +71,17 @@
                 %th Rank
                 %th Player
                 %th Victories
+            - compt = 1
+            - @users_and_victories.each do |user,victories|
+              %tr
+                %td
+                  = compt
+                %td 
+                  = user.username
+                %td 
+                  = victories
+                - compt+=1
+
 
 
 

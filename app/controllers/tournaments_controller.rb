@@ -9,6 +9,7 @@ class TournamentsController < ApplicationController
 
   def show
     @tournament = Tournament.find(params[:id])
+    @users_and_victories = User.build_ranking(@tournament)
     respond_with(@tournament)
   end
 
