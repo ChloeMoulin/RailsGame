@@ -1,36 +1,35 @@
-.well
-	= form_for @user, :html => {:class => 'form-horizontal', :name => 'Login'} do |f|
-		- if @user.errors.any?
-			#errorExplanation
-				%h2
-					= pluralize(@user.errors.count, "error")
-					prohibited this user from being saved:
-				%ul
-					- @user.errors.full_messages.each do |msg|
-						%li
-							= msg
-						
-		.form-group
-			= f.label :username, :class => 'col-sm-5 control-label required'
-			.col-sm-4
-				= f.text_field :username, :class => 'form-control'
-		.form-group
-			= f.label :email, :class => 'col-sm-5 control-label required'
-			.col-sm-4
-				= f.text_field :email, :class => 'form-control'
-		.form-group
-			= f.label :password, :class => 'col-sm-5 control-label required'
-			.col-sm-4
-				= f.password_field :password, :class => 'form-control'
-		.form-group
-			= f.label :password_confirmation, :class => 'col-sm-5 control-label required'
-			.col-sm-4
-				= f.password_field :password_confirmation, :class => 'form-control'
-		.form-group
-			.col-sm-offset-5.col-sm-3
-				= button_tag(type: 'submit', class: "btn btn-default btn-primary") do
-					%span.glyphicon.glyphicon-floppy-disk
-					Save
+= form_for @user, :html => {:class => 'form-horizontal', :name => 'Login'} do |f|
+	- if @user.errors.any?
+		#errorExplanation
+			%h2
+				= pluralize(@user.errors.count, "error")
+				prohibited this user from being saved:
+			%ul
+				- @user.errors.full_messages.each do |msg|
+					%li
+						= msg
+					
+	.form-group
+		= f.label :username, :class => 'col-sm-5 control-label required'
+		.col-sm-4
+			= f.text_field :username, :class => 'form-control'
+	.form-group
+		= f.label :email, :class => 'col-sm-5 control-label required'
+		.col-sm-4
+			= f.text_field :email, :class => 'form-control'
+	.form-group
+		= f.label :password, :class => 'col-sm-5 control-label required'
+		.col-sm-4
+			= f.password_field :password, :class => 'form-control'
+	.form-group
+		= f.label :password_confirmation, :class => 'col-sm-5 control-label required'
+		.col-sm-4
+			= f.password_field :password_confirmation, :class => 'form-control'
+	.form-group
+		.col-sm-offset-5.col-sm-3
+			= button_tag(type: 'submit', class: "btn btn-default btn-primary") do
+				%span.glyphicon.glyphicon-arrow-right
+				Next
 
-		
+	
 

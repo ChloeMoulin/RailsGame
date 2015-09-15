@@ -1,0 +1,103 @@
+####USER
+
+username :
+	- presence
+	- unique
+	- format (chiffre lettres underscore)
+	- de 2 à 15 caractères
+
+email :
+	- presence
+	- unique
+	- vérification du format
+	- de 5 à 30 caractère
+
+password :
+	- de 10 à 50 caractères
+	- presence
+	- confirmation requise
+	(je n'ai pas vérifié le format pour qu'on puisse mettre le mot de passe qu'on veut mais peut être, imposer qu'il y est au moins une lettre et un chiffre ?)
+
+####TOURNOIS
+
+name :
+	- presence
+	- format (lettres min + maj + chiffres +espaces)
+	- de 5 à 20 caractères 
+	- (je n'ai pas vérifié l'unicité, au cas où un tournois revienennt tous les ans par exemple)
+
+description :
+	- presence
+	- format (lettres min + maj + chiffres +espaces)
+	- de 10 à 200 caractères
+
+max_player :
+	- presence
+	- un entier supérieur à 4 
+
+date :
+	- presence
+	- vérification format date
+	- n'est pas antérieur à aujourd'hui
+
+place : 
+	-presence
+	- format (lettres min + maj + chiffre +espace)
+	- de 2 à 20 caractères
+
+games : 
+	- Il doit y avoir obligatoirement un jeu au minimum
+
+
+####PROFILE
+
+	(aucune vérification de présence, le profile n'est pas obligatoire)
+
+date_of_birth :
+	- format date
+	- ne peut pas être dans le futur
+
+country : 
+	- vérification de format 
+
+####MATCHES
+
+score:
+	- entier au moins égal à zéro
+
+
+####GAMES
+
+name :
+	- presence
+	- format lettres min maj chiffres espaces underscore
+	- de 1 à 20 caractère	
+
+description :
+	- presence
+	- format
+	- de 10 à 200 caractères
+
+company :
+
+	- presence
+	- format lettres min maj chiffres espaces underscore
+	- de 1 à 20 caractère	
+
+grade :
+	- presence
+	- entier entre 0 et 10
+
+platforms :
+
+	- presence
+	- format
+
+released_at :
+
+	- format date
+	- presence
+
+
+
+	

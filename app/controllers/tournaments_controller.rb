@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-
+  load_and_authorize_resource
   respond_to :html
 
   def index
@@ -20,6 +20,7 @@ class TournamentsController < ApplicationController
 
   def create
     @tournament = Tournament.new(params[:tournament])
+    @games = Game.all
     if @tournament.save
       redirect_to tournaments_path, :notice => 'Tournament successfully created'
     else
@@ -49,6 +50,7 @@ class TournamentsController < ApplicationController
   end
 
   def register
+    authorize! :register, @tournament if params[:user][:register]
     @tournament = Tournament.find(params[:id])
     @user = current_user
 
@@ -62,12 +64,17 @@ class TournamentsController < ApplicationController
   end
 
   def register_match
+    authorize! :register_match, Tournament
     @tournament = Tournament.find(params[:id])
     @game = Game.find(params[:game_id])
     @user = current_user
 
     @tournament.find_a_match(@game, @user)
     redirect_to @tournament, :notice => "You've been added to a match !"
+  end
+
+  rescue_from CanCan::AccessDenied do | exception |
+    redirect_to root_url, alert: exception.message
   end
 
   private

@@ -1,16 +1,31 @@
 class Tournament < ActiveRecord::Base
-
+  
   attr_accessible :place, :date, :max_player, :name, :description, :game_ids, :user_ids
 
   has_and_belongs_to_many :games
   has_and_belongs_to_many :users
   has_many :matches
 
-  validates :name, :presence => true
-  validates :description, :presence => true
-  validates :place, :presence => true
-  validates :date, :presence => true
-  validates :max_player, :presence => true
+  validates :name, :presence => true,
+            :format => {:with => /^[a-zA-Z0-9_ ]{5,20}$/i},
+            :length => {:within => 5..20}
+
+  validates :description, :presence => true,
+                          :format => {:with => /^[a-zA-Z0-9 ]{10,200}$/i},
+                          :length => {:within => 10..200}
+
+  validates :place, :presence => true,
+                    :format => {:with => /^[a-zA-Z0-9 ]{2,20}$/i},
+                    :length => {:within => 2..20}
+
+  validates :date,  :presence => true,
+                    :format => {:with => /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/i}
+
+  validate :date_cannot_be_in_the_past
+
+  validates :max_player,  :presence => true,
+                          :numericality =>  { only_integer: true, greater_than: 4 }
+
   validates_presence_of :games
 
   def find_a_match(game, user)
@@ -48,6 +63,11 @@ class Tournament < ActiveRecord::Base
     end
 
     return msg
+  end
+
+
+  def date_cannot_be_in_the_past
+    errors.add(:date, "Date must be higher or equal to today") if !date.blank? && date < Date.today
   end
 
 end

@@ -1,5 +1,7 @@
 class ProfilesController < ApplicationController
 
+  load_and_authorize_resource
+
   before_filter :authenticate, :only => [:edit, :update]
   before_filter :load_user, :only => [:edit, :update, :show]
 
@@ -23,11 +25,16 @@ class ProfilesController < ApplicationController
     if @profile.update_attributes(params[:profile])
       redirect_to @profile, :notice => 'Updated your profile information successfully.'
     else
+      render :action => 'edit'
     end
   end
 
   def edit
     @profile = @user.profile
+  end
+
+  rescue_from CanCan::AccessDenied do | exception |
+    redirect_to root_url, alert: exception.message
   end
 
   private

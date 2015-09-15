@@ -20,6 +20,11 @@ gem 'gmaps4rails'
 
 gem 'byebug'
 
+gem 'bootstrap-datepicker-rails'
+
+gem 'omniauth-facebook'
+gem 'omniauth'
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 

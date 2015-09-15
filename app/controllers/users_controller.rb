@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+  load_and_authorize_resource
 
   before_filter :authenticate, :only => [:edit, :update]
 
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      redirect_to games_path, :notice => 'User successfully added.'
+      redirect_to edit_profile_path(@user.profile), :notice => 'User successfully added.'
     else
       render :action => 'new'
     end
@@ -27,6 +27,10 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
+  end
+
+  rescue_from CanCan::AccessDenied do | exception |
+    redirect_to root_url, alert: exception.message
   end
 
 end

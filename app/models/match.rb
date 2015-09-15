@@ -9,6 +9,9 @@ class Match < ActiveRecord::Base
   belongs_to :game
   belongs_to :tournament
 
+  validates :player_1_score, :numericality =>  { only_integer: true, greater_than: -1 }
+  validates :player_2_score, :numericality =>  { only_integer: true, greater_than: -1 }
+
   def calc_points_for_players
 
     profile_1 = self.player_1.profile
@@ -39,6 +42,8 @@ class Match < ActiveRecord::Base
       profile_2.draw
 
     end
+    profile_1.update_attributes(:ratio => profile_1.calc_ratio)
+    profile_2.update_attributes(:ratio => profile_2.calc_ratio)
   end
 
   def match_available?(user)

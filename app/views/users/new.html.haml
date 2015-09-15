@@ -1,5 +1,17 @@
 #content
-	%h2.text-center
-		New User
-	= render 'form'
-	= link_to 'Back', games_path
+  .well
+    %h2.text-center
+      %span.bold
+        BUILD
+      YOUR PROFILE
+    .login_nav
+      %p.p_account.active
+        ACCOUNT
+      %p.p_about
+        ABOUT YOU
+      %p.p_finalize
+        FINALIZATION
+
+
+    = render 'form'
+    = link_to 'Back', games_path

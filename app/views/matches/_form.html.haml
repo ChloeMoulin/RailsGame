@@ -1,11 +1,11 @@
 .well
 	= form_for @match, :html => {:class => 'form-horizontal'} do |f|
 		.form-group
-			= f.label :player_1_score, @user_1, :class => 'col-sm-5 control-label required'
+			= f.label :player_1_score, @match.player_1.username, :class => 'col-sm-5 control-label required'
 			.col-sm-4
 				= f.number_field :player_1_score, :class => 'form-control'
 		.form-group
-			= f.label :player_2_score, @user_2, :class => 'col-sm-5 control-label required'
+			= f.label :player_2_score, @match.player_2.username, :class => 'col-sm-5 control-label required'
 			.col-sm-4
 				= f.number_field :player_2_score, :class => 'form-control'
 		.form-group

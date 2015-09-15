@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  load_and_authorize_resource
 
   before_filter :set_game, only: [:show, :edit, :update, :destroy]
   respond_to :html
@@ -35,6 +36,11 @@ class GamesController < ApplicationController
     @game.destroy
     respond_with(@game)
   end
+
+  rescue_from CanCan::AccessDenied do | exception |
+    redirect_to root_url, alert: exception.message
+  end
+
 
   private
     def set_game

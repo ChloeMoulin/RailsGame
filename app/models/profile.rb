@@ -1,12 +1,17 @@
 class Profile < ActiveRecord::Base
 
-  attr_accessible :age, :country, :defeats, :ratio, :score, :user_id, :victories, :avatar
+  attr_accessible :date_of_birth, :country, :defeats, :ratio, :score, :user_id, :victories, :avatar
 
   belongs_to :user, touch: true
 
-  before_save :ratio_calc
-
   mount_uploader :avatar, CoverUploader
+
+  validates :date_of_birth,  :format => {:with => /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/i}
+
+  validate :date_cannot_be_in_the_future
+
+  validates :country, :format => {:with => /^[a-zA-Z -]{2,15}$/i}
+                    
 
   def increment_victories
     self.victories = (self.victories || 0) + 1
@@ -42,8 +47,12 @@ class Profile < ActiveRecord::Base
     Game.joins(:matches).where(:matches => {:player_1_id => self.user.id, :player_2_id => self.user.id}).uniq_by(&:game_id)
   end
 
-  def ratio_calc   
-    self.defeats.blank? &&  self.victories.blank? ? 0 : (self.victories.to_f / (self.defeats.to_f + self.victories.to_f)).to_f
+  def calc_ratio 
+    self.defeats.blank? &&  self.victories.blank? ? 0 : ((self.victories.to_f / (self.defeats.to_f + self.victories.to_f)).to_f).round(2)
+  end
+
+  def date_cannot_be_in_the_future
+    errors.add(:date_of_birth, "You're not born yet !!") if !date_of_birth.blank? && date_of_birth > Date.today
   end
 
 end

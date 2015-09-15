@@ -11,13 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150910161003) do
+ActiveRecord::Schema.define(:version => 20150915113910) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
     t.string   "company"
     t.text     "description"
-    t.datetime "released_at"
+    t.date     "released_at"
     t.integer  "grade"
     t.string   "platform"
     t.datetime "created_at",  :null => false
@@ -46,14 +46,14 @@ ActiveRecord::Schema.define(:version => 20150910161003) do
   create_table "profiles", :force => true do |t|
     t.integer  "user_id"
     t.string   "country"
-    t.integer  "age"
     t.integer  "score"
     t.integer  "victories"
     t.integer  "defeats"
     t.float    "ratio"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "avatar"
+    t.date     "date_of_birth"
   end
 
   create_table "sessions", :force => true do |t|
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(:version => 20150910161003) do
 
   create_table "tournaments", :force => true do |t|
     t.string   "place"
-    t.datetime "date"
+    t.date     "date"
     t.integer  "max_player"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
@@ -86,8 +86,12 @@ ActiveRecord::Schema.define(:version => 20150910161003) do
     t.string   "email"
     t.string   "hashed_password"
     t.string   "role"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
   end
 
 end

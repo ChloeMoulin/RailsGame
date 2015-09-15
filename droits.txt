@@ -1,0 +1,7 @@
+admin, 	manage all
+
+user, 	voir tout
+	se log
+	s'inscrire
+	editer son propre profile
+	éditer son propre mot de passe
