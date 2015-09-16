@@ -1,32 +1,24 @@
-class UsersController < ApplicationController
+class UsersController < Devise::SessionsController
   load_and_authorize_resource
 
-  before_filter :authenticate, :only => [:edit, :update]
-
   def new
-    @user = User.new
+    super
+  end
+
+  def show
+    super
   end
 
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      redirect_to edit_profile_path(@user.profile), :notice => 'User successfully added.'
-    else
-      render :action => 'new'
-    end
+    super
   end
 
   def edit
-    @user = current_user
+    super
   end
 
   def update
-    @user = current_user
-    if @user.update_attributes(params[:user])
-      redirect_to games_path, :notice => 'Updated user information successfully.'
-    else
-      render :action => 'edit'
-    end
+    super
   end
 
   rescue_from CanCan::AccessDenied do | exception |

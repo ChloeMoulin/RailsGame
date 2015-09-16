@@ -26,6 +26,10 @@ gem 'omniauth'
 
 gem 'omniauth-facebook'
 
+gem 'devise'
+
+gem 'html2haml'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

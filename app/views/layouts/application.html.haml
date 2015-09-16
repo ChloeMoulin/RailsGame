@@ -1,56 +1,62 @@
 !!!
 
 %html
-	%head
-		%title RailsGame
-		= stylesheet_link_tag "application", :media => "all"
-		= javascript_include_tag 'jquery-1.4.2.min', 'rails', 'application', :media => "all"
-		= javascript_include_tag "jquery.min"
-		= csrf_meta_tag
-	%body
-		.container
-			%nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse{:role => "navigation"}
-				.container
-					.navbar-header
-						%button.navbar-toggle{"data-target" => "#navbar-collapse-target", "data-toggle" => "collapse", :type => "button"}
-							%span.icon-bar
-							%span.icon-bar
-							%span.icon-bar
-						%span.navbar-brand
-							= link_to "Rails Games", root_path
-					#navbar-collapse-target.collapse.navbar-collapse
-						%ul.nav.navbar-nav.navbar-right
-							%li.dropdown
-								%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-									Games
-									%b.caret
-								%ul.dropdown-menu
-									%li= link_to "View All",games_path
-							%li.dropdown
-								%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-									Tournaments
-									%b.caret
-								%ul.dropdown-menu
-									%li= link_to "View All",tournaments_path
-							- if logged_in?
-								%li.dropdown
-									%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-										%span.glyphicon.glyphicon-user
-										Welcome
-										= current_user.username
-										%b.caret
-									%ul.dropdown-menu
-										%li= link_to "Edit", edit_user_path(current_user)
-										%li= link_to "My Profile", profile_path(current_user)
-										%li= link_to "Logout",logout_path
-							- else
-								%li.dropdown
-									%a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-										%span.glyphicon.glyphicon-user
-										= "Disconnected"
-										%b.caret
-									%ul.dropdown-menu
-										%li= link_to "Login", login_path(false)
-										%li= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in"
-										%li= link_to "Register", new_user_path					
-			= yield
+  %head
+    %title RailsGame
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag 'jquery-1.4.2.min', 'rails', 'application', :media => "all"
+    = javascript_include_tag "jquery.min"
+    = csrf_meta_tag
+  %body
+    .container
+      %nav.navbar.navbar-default.navbar-fixed-top.navbar-inverse{:role => "navigation"}
+        .container
+          .navbar-header
+            %button.navbar-toggle{"data-target" => "#navbar-collapse-target", "data-toggle" => "collapse", :type => "button"}
+              %span.icon-bar
+              %span.icon-bar
+              %span.icon-bar
+            %span.navbar-brand
+              = link_to "Rails Games", root_path
+          #navbar-collapse-target.collapse.navbar-collapse
+            %ul.nav.navbar-nav.navbar-right
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  Games
+                  %b.caret
+                %ul.dropdown-menu
+                  %li= link_to "View All",games_path
+              %li.dropdown
+                %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                  Tournaments
+                  %b.caret
+                %ul.dropdown-menu
+                  %li= link_to "View All",tournaments_path
+              - if user_signed_in?
+                %li.dropdown
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    %span.glyphicon.glyphicon-user
+                    Welcome
+                    = current_user.username
+                    %b.caret
+                  %ul.dropdown-menu
+                    //%li= link_to "Edit", edit_user_path(current_user)
+                    %li= link_to "My Profile", profile_path(current_user)
+                    %li= link_to "Logout",logout_path
+              - else
+                %li.dropdown
+                  %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                    %span.glyphicon.glyphicon-user
+                    = "Disconnected"
+                    %b.caret
+                  %ul.dropdown-menu
+                    %li= link_to "Login", new_user_session_path
+                    %li= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in"
+                    %li= link_to "Register", new_user_registration_path      
+      - if notice 
+        %p.alert.alert-success
+          = notice
+      - if alert
+        %p.alert.alert-danger
+          = alert
+      = yield

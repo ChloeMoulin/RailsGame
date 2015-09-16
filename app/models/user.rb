@@ -1,5 +1,19 @@
 require 'digest'
 class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me
   has_one :profile
   has_many :matches
 
@@ -14,23 +28,20 @@ class User < ActiveRecord::Base
   attr_accessible :email, :hashed_password, :role, :username, :password, :password_confirmation
   attr_accessor :password, :password_confirmation
 
-  #validates :email, :uniqueness => true, 
-   #         :length => {:within => 5..30},
-   #         :format => {:with => /^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i},
-    #        :presence => true
+  validates :email, :uniqueness => true, 
+                    :length => {:within => 5..30},
+                    :format => {:with => /^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i},
+                    :presence => true
 
-  validates :username, :uniqueness => true,
-            :length => {:within => 2..15},
-            :presence => true,
-            :format => {:with => /^[a-zA-Z0-9_ éè]{2,15}$/i}
+  validates :username,  :uniqueness => true,
+                        :length => {:within => 2..15},
+                        :presence => true,
+                        :format => {:with => /^[a-zA-Z0-9_ éè]{2,15}$/i}
 
-	validates :password, :length => {:within => 10..50},
-						:confirmation => true,
-						:presence => true,
-						:if => :password_required?
-
-
-  before_save :encrypt_new_password
+	validates :password,  :length => {:within => 10..50},
+						            :confirmation => true,
+						            :presence => true,
+						            :if => :password_required?
 
 
   def self.from_omniauth(auth)
@@ -52,7 +63,7 @@ class User < ActiveRecord::Base
   end
 
   def authenticated?(password)
-    self.hashed_password == encrypt(password)
+    self.encrypted_password == encrypt(password)
   end
 
   def is?( requested_role )
@@ -78,12 +89,12 @@ class User < ActiveRecord::Base
   protected
     def encrypt_new_password
       return if password.blank?
-      self.hashed_password = encrypt(password)
+      self.encrypted_password = encrypt(password)
     end
 
 
     def password_required?
-      hashed_password.blank? || password.present?
+      encrypted_password.blank? || password.present?
     end
 
     def encrypt(string)
