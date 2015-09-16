@@ -1,21 +1,20 @@
 RailsGame::Application.routes.draw do
 
-  devise_for :users
 
   root :to => "Games#index"
   resources :games
   resources :users
-  resource :session
+  resource :sessions
   resources :profiles
   resources :tournaments
   resources :matches
 
-  devise_for :users, :controllers => { :sessions => 'users/sessions' } 
+  devise_for :user
   
   devise_scope :user do
     get 'signup', :to => 'devise/registrations#new'
     get 'login', :to => 'devise/sessions#new'
-    get 'signout', :to => 'devise/sessions#destroy'
+    get 'logout', :to => 'devise/sessions#destroy'
   end
 
 

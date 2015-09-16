@@ -5,15 +5,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me
   has_one :profile
   has_many :matches
 
@@ -25,7 +17,7 @@ class User < ActiveRecord::Base
   after_create :define_role
 
 
-  attr_accessible :email, :hashed_password, :role, :username, :password, :password_confirmation
+  attr_accessible :email, :encrypted_password, :role, :username, :password, :password_confirmation, :remember_me
   attr_accessor :password, :password_confirmation
 
   validates :email, :uniqueness => true, 
@@ -50,20 +42,11 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.username = auth.info.name
       user.oauth_token = auth.credentials.token
-      user.email = auth.info.email
+      user.email = "pommedeterresautees@gmail.com"
       user.password = "chocolat42230"
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
       user.save!
     end
-  end
-
-  def self.authenticate(email, password)
-    user = find_by_email(email)
-    return user if user && user.authenticated?(password)
-  end
-
-  def authenticated?(password)
-    self.encrypted_password == encrypt(password)
   end
 
   def is?( requested_role )
@@ -87,19 +70,6 @@ class User < ActiveRecord::Base
 
 
   protected
-    def encrypt_new_password
-      return if password.blank?
-      self.encrypted_password = encrypt(password)
-    end
-
-
-    def password_required?
-      encrypted_password.blank? || password.present?
-    end
-
-    def encrypt(string)
-      Digest::SHA1.hexdigest(string)
-    end
 
 	private
 	def define_role
