@@ -14,15 +14,15 @@ class User < ActiveRecord::Base
   attr_accessible :email, :hashed_password, :role, :username, :password, :password_confirmation
   attr_accessor :password, :password_confirmation
 
-  validates :email, :uniqueness => true, 
-            :length => {:within => 5..30},
-            :format => {:with => /^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i},
-            :presence => true
+  #validates :email, :uniqueness => true, 
+   #         :length => {:within => 5..30},
+   #         :format => {:with => /^[^@][\w.-]+@[\w.-]+[.][a-z]{2,4}$/i},
+    #        :presence => true
 
   validates :username, :uniqueness => true,
             :length => {:within => 2..15},
             :presence => true,
-            :format => {:with => /^[a-zA-Z0-9_]{2,15}$/i}
+            :format => {:with => /^[a-zA-Z0-9_ éè]{2,15}$/i}
 
 	validates :password, :length => {:within => 10..50},
 						:confirmation => true,
@@ -33,12 +33,14 @@ class User < ActiveRecord::Base
   before_save :encrypt_new_password
 
 
-  def self.omniauth(auth)
+  def self.from_omniauth(auth)
     where(auth.slice(:provider, :uid)).first_or_initialize.tap do |user|
       user.provider = auth.provider
       user.uid = auth.uid
-      user.name = auth.info.name
+      user.username = auth.info.name
       user.oauth_token = auth.credentials.token
+      user.email = auth.info.email
+      user.password = "chocolat42230"
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
       user.save!
     end
@@ -71,6 +73,7 @@ class User < ActiveRecord::Base
       users_ranking.sort_by{ |a,b| b}.reverse
 
     end
+
 
   protected
     def encrypt_new_password

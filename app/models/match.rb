@@ -69,4 +69,5 @@ class Match < ActiveRecord::Base
     match.player_1 = user
     user.matches << match
   end
+
 end

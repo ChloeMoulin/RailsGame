@@ -12,19 +12,19 @@
 	.form-group
 		= f.label :username, :class => 'col-sm-5 control-label required'
 		.col-sm-4
-			= f.text_field :username, :class => 'form-control'
+			= f.text_field :username, :class => 'form-control', :onblur => 'check_username(this)'
 	.form-group
 		= f.label :email, :class => 'col-sm-5 control-label required'
 		.col-sm-4
-			= f.text_field :email, :class => 'form-control'
+			= f.text_field :email, :class => 'form-control', :onblur => 'check_email(this)'
 	.form-group
 		= f.label :password, :class => 'col-sm-5 control-label required'
 		.col-sm-4
-			= f.password_field :password, :class => 'form-control'
+			= f.password_field :password, :class => 'form-control', :onblur => 'check_password(this)'
 	.form-group
 		= f.label :password_confirmation, :class => 'col-sm-5 control-label required'
 		.col-sm-4
-			= f.password_field :password_confirmation, :class => 'form-control'
+			= f.password_field :password_confirmation, :class => 'form-control', :onblur => 'check_password_confirmation(this)'
 	.form-group
 		.col-sm-offset-5.col-sm-3
 			= button_tag(type: 'submit', class: "btn btn-default btn-primary") do

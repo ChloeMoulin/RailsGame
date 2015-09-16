@@ -22,8 +22,10 @@ gem 'byebug'
 
 gem 'bootstrap-datepicker-rails'
 
-gem 'omniauth-facebook'
 gem 'omniauth'
+
+gem 'omniauth-facebook'
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
