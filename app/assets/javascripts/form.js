@@ -1,4 +1,4 @@
-function invalid_field(field, error) {
+function invalid_field(field, error, msg, span) {
    if(error)
       field.style.border = "1px solid #ea1515";
    else
@@ -11,11 +11,12 @@ function check_username(field) {
 
   var regex = /^[a-zA-Z0-9_ éè]{2,15}$/i;
   if(field.value.length < 2 || field.value.length > 15 || !regex.test(field.value)) {
-    invalid_field(field, true);
+    invalid_field(field, true, "de 5 à 15 caractères", document.getElementById('username_error'));
+    document.getElementById('username_error').InnerHTML = "patate"
     return false;
   }
   else {
-    invalid_field(field, false);
+    invalid_field(field, false, "");
     return true;
    }
 }
@@ -56,3 +57,5 @@ function check_password_confirmation(field) {
     return true;
    }
 }
+ 
+

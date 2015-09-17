@@ -16,18 +16,22 @@
 
       .form-group
         = f.label :username, :class => 'col-sm-5 control-label required'
+        %span.error#username_error
         .col-sm-4
           = f.text_field :username, :class => 'form-control', :onblur => 'check_username(this)'
       .form-group
         = f.label :email, :class => 'col-sm-5 control-label required'
+        %span.error#email_error
         .col-sm-4
           = f.text_field :email, :class => 'form-control', :onblur => 'check_email(this)'
       .form-group
         = f.label :password, :class => 'col-sm-5 control-label required'
+        %span.error#password_error
         .col-sm-4
           = f.password_field :password, :class => 'form-control', :onblur => 'check_password(this)'
       .form-group
         = f.label :password_confirmation, :class => 'col-sm-5 control-label required'
+        %span.error#password_confirmation_error
         .col-sm-4
           = f.password_field :password_confirmation, :class => 'form-control', :onblur => 'check_password_confirmation(this)'
       .form-group
