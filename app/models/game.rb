@@ -21,7 +21,7 @@ class Game < ActiveRecord::Base
                     :numericality =>  { only_integer: true, greater_than: -1, less_than: 11 }
 
   validates :platform,  :presence => true, 
-                        :format => {:with => /^[a-zA-Z0-9 ]{10,200}$/i}
+                        :format => {:with => /^[a-zA-Z0-9 ]{3,20}$/i}
 
   validates :released_at, :presence => true,
                           :format => {:with => /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/i}

@@ -50,7 +50,7 @@ class TournamentsController < ApplicationController
   end
 
   def register
-    authorize! :register, @tournament if params[:user][:register]
+    authorize! :register, Tournament
     @tournament = Tournament.find(params[:id])
     @user = current_user
 
@@ -59,7 +59,7 @@ class TournamentsController < ApplicationController
     if @tournament.update_attributes(params[:tournament])
       redirect_to @tournament, :notice => msg
     else
-      render :action => 'show'
+      redirect_to @tournament
     end
   end
 
@@ -68,9 +68,11 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
     @game = Game.find(params[:game_id])
     @user = current_user
-
-    @tournament.find_a_match(@game, @user)
-    redirect_to @tournament, :notice => "You've been added to a match !"
+    if @tournament.find_a_match(@game, @user)
+      redirect_to @tournament, :notice => "You've been added to a match !"
+    else
+      redirect_to @tournament, :alert => "Something prevented you from register for this match"
+    end
   end
 
   rescue_from CanCan::AccessDenied do | exception |

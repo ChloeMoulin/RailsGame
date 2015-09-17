@@ -46,7 +46,7 @@ class Profile < ActiveRecord::Base
   end
 
   def prepare_games_list
-    Game.joins(:matches).where(:matches => {:player_1_id => self.user.id, :player_2_id => self.user.id}).uniq_by(&:game_id)
+    Game.joins(:matches).where("matches.player_1_id = ? OR matches.player_2_id = ?", user.id, user.id).uniq_by(&:id)
   end
 
   def calc_ratio 

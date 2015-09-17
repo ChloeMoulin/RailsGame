@@ -33,11 +33,11 @@ class Tournament < ActiveRecord::Base
     self.matches.each do |match|
       if match.game == game
         if match.match_available?(user) == true
-          return
+          return true
         end
       end
     end
-    Match.create_new_match(self,user,game)
+    Match.create_new_match(self,user,game)   
   end
 
   def can_register?
@@ -61,7 +61,7 @@ class Tournament < ActiveRecord::Base
       msg = "You've successfully registered for this tournament !"
       self.users << user
     end
-
+    Notifier.inscription_tournament(self,user).deliver
     return msg
   end
 

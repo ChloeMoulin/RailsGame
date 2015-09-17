@@ -3,7 +3,6 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-    user.role = nil
 
     can :read, Game
     can :read, Tournament
@@ -24,7 +23,6 @@ class Ability
 
       can :register, Tournament
       can :register_match, Tournament
-      can :create, Match
 
 
     end

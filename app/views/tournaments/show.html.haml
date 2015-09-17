@@ -56,8 +56,12 @@
                       -if match.player_2.presence                        
                         = match.player_2.username
                     - if !match.player_1.blank? && !match.player_2.blank? && match.player_1_score == nil && match.player_2_score == nil
-                      %p.save_score
-                        = link_to("Save a score", edit_match_path(:id => match.id), :class => "btn btn-primary")
+                      -if can? :update, Match  
+                        %p.save_score
+                          = link_to("Save a score", edit_match_path(:id => match.id), :class => "btn btn-primary")
+                    - if match.uninscription_available?(current_user)
+                      %p
+                        = link_to("Unregister", matches_unregister_match_path(:id => match.id), :class => "btn btn-primary")
                         
 
 

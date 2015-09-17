@@ -14,6 +14,13 @@ class MatchesController < ApplicationController
     end
   end
 
+  def unregister_match
+    @match = Match.find(params[:id])
+    @user = current_user
+    @match.unregister(@user)
+    redirect_to @match.tournament
+  end
+
   rescue_from CanCan::AccessDenied do | exception |
     redirect_to root_url, alert: exception.message
   end

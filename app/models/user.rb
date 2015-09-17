@@ -7,14 +7,12 @@ class User < ActiveRecord::Base
 
 
   has_one :profile
-  has_many :matches
-
 
   has_many :played_1, :foreign_key => "player_1_id", :class_name => "Match"
   has_many :played_2, :foreign_key => "player_2_id", :class_name => "Match"
 
   has_and_belongs_to_many :tournaments
-  after_create :define_role
+  after_create :define_role, :send_mail_registration
 
 
   attr_accessible :email, :encrypted_password, :role, :username, :password, :password_confirmation, :remember_me
@@ -42,7 +40,7 @@ class User < ActiveRecord::Base
       user.uid = auth.uid
       user.username = auth.info.name
       user.oauth_token = auth.credentials.token
-      user.email = "pommedeterresautees@gmail.com"
+      user.email = "chloe.moulin1337@gmail.com"
       user.password = Devise.friendly_token[0,20]
       user.oauth_expires_at = Time.at(auth.credentials.expires_at)
       user.save!
@@ -81,4 +79,8 @@ class User < ActiveRecord::Base
       self.create_profile
   		self.update_attributes(:role => "user")
   	end
+
+    def send_mail_registration
+      Notifier.inscription(self).deliver
+    end
 end
