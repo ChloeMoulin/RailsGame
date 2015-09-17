@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
 
   attr_accessible :email, :encrypted_password, :role, :username, :password, :password_confirmation, :remember_me
-  attr_accessor :password, :password_confirmation
+
 
   validates :email, :uniqueness => true, 
                     :length => {:within => 5..30},
@@ -68,12 +68,8 @@ class User < ActiveRecord::Base
 
     end
 
-
-  protected
-
-	private
-	def define_role
-    self.build_profile
-		self.role = "user"
-	end
+  	def define_role
+      self.create_profile
+  		self.update_attributes(:role => "user")
+  	end
 end

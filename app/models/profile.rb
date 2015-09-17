@@ -6,11 +6,13 @@ class Profile < ActiveRecord::Base
 
   mount_uploader :avatar, CoverUploader
 
-  validates :date_of_birth,  :format => {:with => /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/i}
+  validates :date_of_birth,   :allow_nil => true,
+                              :format => {:with => /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/i}
 
   validate :date_cannot_be_in_the_future
 
-  validates :country, :format => {:with => /^[a-zA-Z -]{2,15}$/i}
+  validates :country, :allow_nil => true,
+                      :format => {:with => /^[a-zA-Z -]{2,15}$/i}
                     
 
   def increment_victories
