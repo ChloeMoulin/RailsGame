@@ -22,11 +22,7 @@ gem 'byebug'
 
 gem 'bootstrap-datepicker-rails'
 
-gem 'omniauth'
-
 gem 'omniauth-facebook'
-
-gem 'devise'
 
 gem 'html2haml'
 

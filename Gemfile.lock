@@ -194,7 +194,6 @@ DEPENDENCIES
   haml-rails
   html2haml
   jquery-rails
-  omniauth
   omniauth-facebook
   pg
   rails (= 3.2.13)
