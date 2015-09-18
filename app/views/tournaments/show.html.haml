@@ -25,9 +25,6 @@
               %strong Date:
               = @tournament.date
             %p
-              %strong Place:
-              = @tournament.place
-            %p
               %strong Maximal number of players:
               = @tournament.max_player        
             - if user_signed_in? && !current_user.tournaments.include?(@tournament)

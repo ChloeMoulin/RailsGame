@@ -1,4 +1,3 @@
-%p#notice= notice
 
 %ul.nav.nav-tabs{"data-tabs" => "tabs"}
   %li.active
@@ -21,9 +20,6 @@
             %p
               %strong Age:
               = @profile.date_of_birth
-            %p
-              %strong Country:
-              = @profile.country
             %p
               %strong Victories:
               = @profile.victories
@@ -55,7 +51,7 @@
             %td= tournament.name
             %td= tournament.description
             %td= tournament.date
-            %td= tournament.place
+            %td= tournament.location.address
             %td= tournament.max_player
             %td
               %ul

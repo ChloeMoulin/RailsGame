@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150916075013) do
+ActiveRecord::Schema.define(:version => 20150918102703) do
 
   create_table "games", :force => true do |t|
     t.string   "name"
@@ -30,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20150916075013) do
     t.integer "tournament_id"
   end
 
+  create_table "locations", :force => true do |t|
+    t.string   "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "matches", :force => true do |t|
     t.integer  "player_1_id"
     t.integer  "player_2_id"
@@ -45,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20150916075013) do
 
   create_table "profiles", :force => true do |t|
     t.integer  "user_id"
-    t.string   "country"
     t.integer  "score"
     t.integer  "victories"
     t.integer  "defeats"
@@ -54,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20150916075013) do
     t.datetime "updated_at",    :null => false
     t.string   "avatar"
     t.date     "date_of_birth"
+    t.integer  "location_id"
   end
 
   create_table "sessions", :force => true do |t|
@@ -67,9 +75,9 @@ ActiveRecord::Schema.define(:version => 20150916075013) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "tournaments", :force => true do |t|
-    t.string   "place"
-    t.date     "date"
+    t.datetime "date"
     t.integer  "max_player"
+    t.integer  "location_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
     t.string   "name"

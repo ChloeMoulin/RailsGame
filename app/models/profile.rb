@@ -1,6 +1,11 @@
 class Profile < ActiveRecord::Base
 
-  attr_accessible :date_of_birth, :country, :defeats, :ratio, :score, :user_id, :victories, :avatar
+  attr_accessible :date_of_birth, :country, :defeats, :ratio, :score, :user_id, :victories, :avatar, :location_id,:location_address
+  attr_accessor :location_address
+
+  before_validation :create_location_profile
+
+  belongs_to :location
 
   belongs_to :user, touch: true
 
@@ -10,9 +15,6 @@ class Profile < ActiveRecord::Base
                               :format => {:with => /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/i}
 
   validate :date_cannot_be_in_the_future
-
-  validates :country, :allow_nil => true,
-                      :format => {:with => /^[a-zA-Z -]{2,15}$/i}
                     
 
   def increment_victories
@@ -55,6 +57,17 @@ class Profile < ActiveRecord::Base
 
   def date_cannot_be_in_the_future
     errors.add(:date_of_birth, "You're not born yet !!") if !date_of_birth.blank? && date_of_birth > Date.today
+  end
+
+    def create_location_profile
+    location = Location.find_by_address(location_address)
+    if location != nil
+      self.location = location
+    else
+      self.location = Location.new
+      self.location.address = location_address
+      self.location.save
+    end
   end
 
 end

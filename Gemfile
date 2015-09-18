@@ -18,13 +18,18 @@ gem 'carrierwave'
 
 gem 'gmaps4rails'
 
-gem 'byebug'
+gem 'pry-byebug'
 
 gem 'bootstrap-datepicker-rails'
 
 gem 'omniauth-facebook'
 
 gem 'html2haml'
+
+gem 'geocoder'
+
+gem "better_errors"
+gem "binding_of_caller"
 
 
 # Bundle edge Rails instead:

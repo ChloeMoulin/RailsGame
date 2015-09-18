@@ -43,7 +43,7 @@ class ProfilesController < ApplicationController
     end
 
     def games_params
-      params.require(:profile).permit(:avatar)
+      params.require(:profile).permit(:avatar, :location_id, :location_address )
     end
 
 end

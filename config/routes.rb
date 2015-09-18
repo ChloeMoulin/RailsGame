@@ -1,6 +1,9 @@
 RailsGame::Application.routes.draw do
 
 
+  resources :locations
+
+
   root :to => "Games#index"
   resources :games
   resources :users do
@@ -25,7 +28,7 @@ RailsGame::Application.routes.draw do
   match 'tournaments/:id/register_match/:id' => 'tournaments#register_match', as: :tournaments_register_match
   match 'matches/:id/unregister_match' => 'matches#unregister_match', as: :matches_unregister_match
 
-  devise_for :user, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :user, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", registrations: "registrations" }
 
   
 end
