@@ -26,9 +26,12 @@
               = @tournament.date
             %p
               %strong Maximal number of players:
-              = @tournament.max_player        
+              = @tournament.max_player       
+
             - if user_signed_in? && !current_user.tournaments.include?(@tournament)
               = link_to "Register for this tournament", tournaments_register_path(:id => @tournament.id), :class => "btn btn-primary"
+            %div{:style => "width: 800px;"}
+              #map{:style => "width: 800px; height: 400px;"}
 
       #games_and_matches.tab-pane
         - @tournament.games.each do |game|
@@ -84,8 +87,18 @@
                 - compt+=1
 
 
+%script{:src => "//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry", :type => "text/javascript"}
+%script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js", :type => "text/javascript"}
 
 
+:javascript
+  handler = Gmaps.build('Google');
+  var json = "#{ @hash || 'null' }"
 
-
+  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+    markers = handler.addMarkers(#{raw @hash.to_json});
+    handler.bounds.extendWith(markers);
+    handler.fitMapToBounds();
+    handler.getMap().setZoom(15);
+  });
 

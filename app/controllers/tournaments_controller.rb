@@ -9,7 +9,13 @@ class TournamentsController < ApplicationController
 
   def show
     @tournament = Tournament.find(params[:id])
+    @locations = Location.all
     @users_and_victories = User.build_ranking(@tournament)
+    @hash = Gmaps4rails.build_markers(@tournament.location) do |location, marker|
+      marker.lat location.latitude
+      marker.lng location.longitude
+      marker.json({:id => location.id})
+    end
     respond_with(@tournament)
   end
 
