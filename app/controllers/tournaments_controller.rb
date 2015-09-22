@@ -2,7 +2,14 @@ class TournamentsController < ApplicationController
   load_and_authorize_resource
   respond_to :html
 
-  def index
+  def list 
+    @tournaments_list = Tournament.order_for_index
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def map 
     @location = params[:search]
     @distance = params[:distance]
 
@@ -62,7 +69,13 @@ class TournamentsController < ApplicationController
       @hash = @hash_location << @hash
       @hash.flatten!
     end
-    respond_with(@tournaments)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def index
+    
   end
 
   def show

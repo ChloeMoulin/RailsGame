@@ -23,7 +23,8 @@ RailsGame::Application.routes.draw do
     delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session_path
   end
 
-
+  match 'tournaments_list' => 'tournaments#list', as: :tournaments_list
+  match 'tournaments_map' => 'tournaments#map', as: :tournaments_map
   match 'tournaments/:id/register' => 'tournaments#register', as: :tournaments_register
   match 'tournaments/:id/register_match/:id' => 'tournaments#register_match', as: :tournaments_register_match
   match 'matches/:id/unregister_match' => 'matches#unregister_match', as: :matches_unregister_match

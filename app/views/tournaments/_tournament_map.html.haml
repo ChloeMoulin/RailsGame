@@ -1,0 +1,23 @@
+.ey_nav_div
+  = form_tag("/tournaments_map", method: :get, class: " navbar-form") do 
+    = text_field_tag :search, params[:search], placeholder: "city, state, zip, address", class: "form-control"
+    = select_tag :distance, options_for_select([["within 100 km", "100"], ["within 250 km", "250"], ["within 500 km", "500"]]), class: "form-control"
+
+    = submit_tag "Find Tournaments", name: nil, :class => "btn btn-info"
+%div{:style => "width: 100%;"}
+  #map{:style => "width: 100%; height: 400px;"}
+
+:javascript
+    function initialize_map(){
+      handler = Gmaps.build('Google');
+
+      handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
+        markers = handler.addMarkers(#{raw @hash.to_json});
+        handler.bounds.extendWith(markers);
+        handler.fitMapToBounds();
+        handler.map.centerOn(markers[0]);
+        $("#map").show();
+      });
+    };
+    $(document).ready(initialize_map);
+

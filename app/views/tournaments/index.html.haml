@@ -1,73 +1,14 @@
 %h1 Listing Tournaments
 .container
   #content
-    %ul#tabs.nav.nav-tabs{"data-tabs" => "tabs"}
-      %li.active
-        %a{"data-toggle" => "tab", :href => "#view_all"} View all tournaments
-      %li
-        %a{"data-toggle" => "tab", :href => "#distance"} Search by distance
+    = link_to "View all", tournaments_list_path, :remote => true
+    = link_to "Search by distance", tournaments_map_path, :remote => true, :id => "map_button"
 
-    .tab-content
-      #view_all.tab-pane.active
-        - @tournaments_list.each do |tournament|
-          - if tournament.date > Date.today || tournament.max_player <= tournament.users.count
-            - style = "panel-primary"
-          - else
-            -style = "panel-success"   
-          .panel{:class => style}
-            .panel-heading
-              = tournament.name
-            .panel-body
-              .tournament_infos
-                %p
-                  %span.glyphicon.glyphicon-calendar
-                  Date:
-                  = tournament.date
-
-                %p
-                  %span.glyphicon.glyphicon-pushpin
-                  Place:
-                  = tournament.address
-                %p
-                  %span.glyphicon.glyphicon-user
-                  Max Player:
-                  = tournament.max_player
-
-              .games_logo
-                - @logos = tournament.games.first(5)
-                - @logos.each do |logo|
-                  = image_tag(logo.cover.url, :id => "cover", :class => "img-rounded") if logo.cover?
-
-              .tournament_button
-                = link_to('Learn more', tournament, :class => "btn btn-primary" )
-                - if user_signed_in? && !current_user.tournaments.include?(tournament) && style == "panel-primary" && (can? :register, Tournament)
-                  = link_to("Register now !", tournaments_register_path(:id => tournament.id), :class => "btn btn-primary")
-                - elsif user_signed_in? && current_user.tournaments.include?(tournament)
-                  %p You've already registered !
-
-      #distance.tab-pane
-        .ey_nav_div
-          = form_tag("/tournaments", method: :get, class: " navbar-form") do 
-            = text_field_tag :search, params[:search], placeholder: "city, state, zip, address", class: "form-control"
-            = select_tag :distance, options_for_select([["within 100 km", "100"], ["within 250 km", "250"], ["within 500 km", "500"]]), class: "form-control"
-
-            = submit_tag "Find Tournaments", name: nil, :class => "btn btn-info"
-        %div{:style => "width: 100%;"}
-          #map{:style => "width: 100%; height: 400px;"}
+    #tab-content_tournament
 
 %script{:src => "//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry", :type => "text/javascript"}
 %script{:src => "//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js", :type => "text/javascript"}
 
-
-:javascript
-  handler = Gmaps.build('Google');
-
-  handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
-    markers = handler.addMarkers(#{raw @hash.to_json});
-    handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
-    handler.map.centerOn(markers[0]);
-  });
 
 
 
