@@ -10,6 +10,10 @@ class Ability
     can :read, Profile
     can :create, User
 
+    can :map_show, Tournament
+    can :map, Tournament
+    can :list, Tournament
+
 
 
     if user.is? :user
@@ -23,6 +27,7 @@ class Ability
 
       can :register, Tournament
       can :register_match, Tournament
+
 
 
     end

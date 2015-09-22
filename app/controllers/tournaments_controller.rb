@@ -9,15 +9,14 @@ class TournamentsController < ApplicationController
     end
   end
 
-  def map 
+  def map_show
+
     @location = params[:search]
     @distance = params[:distance]
 
     @tournaments = nil
-    @tournaments_list = Tournament.order_for_index
-
     if @location != nil && !@location.empty? && @distance != nil
-      @tournaments = Tournament.near(@location, @distance)
+      @tournaments = Tournament.near(@location, @distance, {:units => :km})
       @loc = Location.find_by_address(@location)
       if @loc == nil
         @loc = Location.new
@@ -37,7 +36,7 @@ class TournamentsController < ApplicationController
       end
 
     elsif user_signed_in? && current_user.profile.address != nil && (@location == nil || @location.empty?) && @distance != nil
-      @tournaments = Tournament.near(current_user.profile, @distance)
+      @tournaments = Tournament.near(current_user.profile, @distance, {:units => :km})
     else
       @tournaments = Tournament.order_for_index
     end
@@ -68,6 +67,36 @@ class TournamentsController < ApplicationController
     if @hash_location != nil
       @hash = @hash_location << @hash
       @hash.flatten!
+    end 
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def map
+    @tournaments = nil
+    @tournaments_list = Tournament.order_for_index    
+    @hash = Gmaps4rails.build_markers(@tournaments_list) do |tournament, marker|
+      marker.lat tournament.latitude
+      marker.lng tournament.longitude
+      marker.title tournament.name
+      marker.infowindow render_to_string(:partial => "/info_window", :locals => {:object => tournament})
+      marker.json({:id => tournament.id})
+    end
+    if user_signed_in? && current_user.profile.address != nil
+      @hash_user = Gmaps4rails.build_markers(current_user) do |user,marker|
+        marker.lat user.profile.latitude
+        marker.lng user.profile.longitude
+        marker.infowindow "You"
+        marker.json({:id => user.id})
+        marker.picture({
+         :url => "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|007FFF|000000",
+         :width   => 32,
+         :height  => 32
+        })
+      end
+    @hash = @hash_user << @hash
+    @hash.flatten!
     end
     respond_to do |format|
       format.js

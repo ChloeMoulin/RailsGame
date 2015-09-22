@@ -25,6 +25,7 @@ RailsGame::Application.routes.draw do
 
   match 'tournaments_list' => 'tournaments#list', as: :tournaments_list
   match 'tournaments_map' => 'tournaments#map', as: :tournaments_map
+  match 'tournaments_map_show' => 'tournaments#map_show', as: :tournaments_map_show
   match 'tournaments/:id/register' => 'tournaments#register', as: :tournaments_register
   match 'tournaments/:id/register_match/:id' => 'tournaments#register_match', as: :tournaments_register_match
   match 'matches/:id/unregister_match' => 'matches#unregister_match', as: :matches_unregister_match
