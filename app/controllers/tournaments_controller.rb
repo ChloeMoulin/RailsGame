@@ -3,7 +3,65 @@ class TournamentsController < ApplicationController
   respond_to :html
 
   def index
-    @tournaments = Tournament.order_for_index
+    @location = params[:search]
+    @distance = params[:distance]
+
+    @tournaments = nil
+    @tournaments_list = Tournament.order_for_index
+
+    if @location != nil && !@location.empty? && @distance != nil
+      @tournaments = Tournament.near(@location, @distance)
+      @loc = Location.find_by_address(@location)
+      if @loc == nil
+        @loc = Location.new
+        @loc.address = @location
+        @loc.save
+      end
+      @hash_location = Gmaps4rails.build_markers(@loc) do |location, marker|
+        marker.lat location.latitude
+        marker.lng location.longitude
+        marker.infowindow "Your location"
+        marker.json({:id => location.id})
+        marker.picture({
+         :url => "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|3A9D23|000000",
+         :width   => 32,
+         :height  => 32
+        })
+      end
+
+    elsif user_signed_in? && current_user.profile.address != nil && (@location == nil || @location.empty?) && @distance != nil
+      @tournaments = Tournament.near(current_user.profile, @distance)
+    else
+      @tournaments = Tournament.order_for_index
+    end
+
+    @hash = Gmaps4rails.build_markers(@tournaments) do |tournament, marker|
+      marker.lat tournament.latitude
+      marker.lng tournament.longitude
+      marker.title tournament.name
+      marker.infowindow render_to_string(:partial => "/info_window", :locals => {:object => tournament})
+      marker.json({:id => tournament.id})
+    end
+    if user_signed_in? && current_user.profile.address != nil
+      @hash_user = Gmaps4rails.build_markers(current_user) do |user,marker|
+        marker.lat user.profile.latitude
+        marker.lng user.profile.longitude
+        marker.infowindow "You"
+        marker.json({:id => user.id})
+        marker.picture({
+         :url => "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=|007FFF|000000",
+         :width   => 32,
+         :height  => 32
+        })
+      end
+    @hash = @hash_user << @hash
+    @hash.flatten!
+    end
+
+    if @hash_location != nil
+      @hash = @hash_location << @hash
+      @hash.flatten!
+    end
     respond_with(@tournaments)
   end
 
@@ -11,9 +69,11 @@ class TournamentsController < ApplicationController
     @tournament = Tournament.find(params[:id])
     @locations = Location.all
     @users_and_victories = User.build_ranking(@tournament)
-    @hash = Gmaps4rails.build_markers(@tournament.location) do |location, marker|
+    @hash = Gmaps4rails.build_markers(@tournament) do |location, marker|
       marker.lat location.latitude
       marker.lng location.longitude
+      marker.title @tournament.name
+      marker.infowindow render_to_string(:partial => "/info_window", :locals => {:object => @tournament})
       marker.json({:id => location.id})
     end
     respond_with(@tournament)
@@ -87,7 +147,7 @@ class TournamentsController < ApplicationController
 
   private
     def tournaments_params
-      params.require(:tournament).permit(:location_id, :location_address , :name, :description, :date, :max_player, :game_ids => [], :user_ids => [])
+      params.require(:tournament).permit(:name, :description, :date, :max_player, :game_ids => [], :user_ids => [])
     end
 
 end

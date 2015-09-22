@@ -93,7 +93,6 @@
 
 :javascript
   handler = Gmaps.build('Google');
-  var json = "#{ @hash || 'null' }"
 
   handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
     markers = handler.addMarkers(#{raw @hash.to_json});
