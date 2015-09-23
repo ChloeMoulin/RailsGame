@@ -19,9 +19,14 @@
       %p
         %strong Company:
         = @game.company
+      %p#grade
+        = render 'game_grade'
+
       %p
-        %strong Grade:
-        = @game.grade
+        = link_to games_change_grade_path(@game, :value => "up"), :remote => true do
+          %i.glyphicon.glyphicon-plus
+        = link_to games_change_grade_path(@game, :value => "down"), :remote => true do
+          %i.glyphicon.glyphicon-minus
 
 
 = link_to 'Edit', edit_game_path(@game)

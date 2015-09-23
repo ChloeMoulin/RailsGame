@@ -41,6 +41,15 @@ class GamesController < ApplicationController
     redirect_to root_url, alert: exception.message
   end
 
+  def change_grade
+    @game = Game.find(params[:id])
+    value = params[:value]
+    @game.set_grade(value)
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   private
     def set_game

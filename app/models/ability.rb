@@ -14,6 +14,8 @@ class Ability
     can :map, Tournament
     can :list, Tournament
 
+    can :change_grade, Game
+
 
 
     if user.is? :user

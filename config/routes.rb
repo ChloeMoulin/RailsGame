@@ -30,6 +30,8 @@ RailsGame::Application.routes.draw do
   match 'tournaments/:id/register_match/:id' => 'tournaments#register_match', as: :tournaments_register_match
   match 'matches/:id/unregister_match' => 'matches#unregister_match', as: :matches_unregister_match
 
+  match 'games/:id/change_grade' => 'games#change_grade', as: :games_change_grade
+
   devise_for :user, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks", registrations: "registrations" }
 
   

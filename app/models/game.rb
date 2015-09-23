@@ -6,11 +6,11 @@ class Game < ActiveRecord::Base
   has_many :matches
 
   validates :name,  :presence => true,
-                    :format => {:with => /^[a-zA-Z0-9_ ]{5,20}$/i},
+                    :format => {:with => /^[a-zA-Z0-9_ :]{5,20}$/i},
                     :length => {:within => 1..20}
 
   validates :description, :presence => true,
-                          :format => {:with => /^[a-zA-Z0-9 ]{10,200}$/i},
+                          :format => {:with => /^[a-zA-Z0-9 ():éèà]{10,200}$/i},
                           :length => {:within => 10..200}
 
   validates :company, :presence => true,
@@ -18,7 +18,7 @@ class Game < ActiveRecord::Base
                       :length => {:within => 1..20}
 
   validates :grade, :presence => true,
-                    :numericality =>  { only_integer: true, greater_than: -1, less_than: 11 }
+                    :numericality =>  { only_integer: true}
 
   validates :platform,  :presence => true, 
                         :format => {:with => /^[a-zA-Z0-9 ]{3,20}$/i}
@@ -28,6 +28,15 @@ class Game < ActiveRecord::Base
 
 
   mount_uploader :cover, CoverUploader 
+
+  def set_grade(value)
+    if value == "up"
+      self.update_attributes(:grade => (self.grade)+1)
+    elsif value == "down"
+      self.update_attributes(:grade => (self.grade)-1)
+    end
+    puts self.errors.full_messages
+  end
 
 end
   
