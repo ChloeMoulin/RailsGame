@@ -43,8 +43,7 @@ class GamesController < ApplicationController
 
   def change_grade
     @game = Game.find(params[:id])
-    value = params[:value]
-    @game.set_grade(value)
+    @game.set_grade(params[:value])
     respond_to do |format|
       format.js
     end

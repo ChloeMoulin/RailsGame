@@ -19,8 +19,10 @@
       %p
         %strong Company:
         = @game.company
-      %p#grade
-        = render 'game_grade'
+      %p
+        %strong Grade:
+        %span#grade= @game.grade
+        =# render 'game_grade'
 
       %p
         = link_to games_change_grade_path(@game, :value => "up"), :remote => true do

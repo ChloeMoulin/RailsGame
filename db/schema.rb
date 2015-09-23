@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(:version => 20150921145529) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "tournaments", :force => true do |t|
-    t.datetime "date"
+    t.date     "date"
     t.integer  "max_player"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false

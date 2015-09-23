@@ -30,11 +30,7 @@ class Game < ActiveRecord::Base
   mount_uploader :cover, CoverUploader 
 
   def set_grade(value)
-    if value == "up"
-      self.update_attributes(:grade => (self.grade)+1)
-    elsif value == "down"
-      self.update_attributes(:grade => (self.grade)-1)
-    end
+    value == "up" ? self.increment!(:grade) : self.decrement!(:grade)
     puts self.errors.full_messages
   end
 
