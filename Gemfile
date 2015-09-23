@@ -32,6 +32,7 @@ gem "better_errors"
 gem "binding_of_caller"
 
 
+
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
