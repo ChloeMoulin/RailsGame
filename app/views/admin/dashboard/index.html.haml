@@ -1,0 +1,49 @@
+%h1 Most Played Games
+%table.table.table-hover.table-condensed
+  %thead
+    %tr
+      %th Name
+      %th Matches played
+  - @most_played_games.each do |game, matches|
+    %tr
+      %td= game
+      %td= matches
+
+%h1 Best Grades
+%table.table.table-hover.table-condensed
+  %thead
+    %tr
+      %th Name
+      %th Grade
+  - @best_grade_games.each do |game, grade|
+    %tr
+      %td= game
+      %td= grade
+
+%h1 Best Players
+%table.table.table-hover.table-condensed
+  %thead
+    %tr
+      %th Username
+      %th Score
+      %th Victories
+      %th Ratio
+  - @best_players.each do |row|
+    %tr
+      %td= row[0]
+      %td= row[1]
+      %td= row[2]
+      %td= row[3]
+
+%h1 Best Players by game
+%table.table.table-hover.table-condensed
+  %thead
+    %tr
+      %th Username
+      %th Victories
+  - @best_players_by_game.each do |key,value|
+    %h3= key
+    - value.each do |player,victories|
+      %tr
+        %td= player
+        %td= victories

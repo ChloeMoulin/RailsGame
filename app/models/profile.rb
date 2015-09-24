@@ -58,5 +58,11 @@ class Profile < ActiveRecord::Base
     errors.add(:date_of_birth, "You're not born yet !!") if !date_of_birth.blank? && date_of_birth > Date.today
   end
 
+  def self.best_players
+    sql = "Select username, score, victories, ratio from users inner join profiles on users.id = profiles.user_id order by score desc"
+    return ActiveRecord::Base.connection.exec_query(sql).rows
+  end
+
+
 end
 

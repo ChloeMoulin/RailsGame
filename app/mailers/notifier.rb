@@ -17,7 +17,7 @@ class Notifier < ActionMailer::Base
     @username = user.username
     @tournament_name = tournament.name
     @tournament_date = tournament.date
-    @tournament_place = tournament.location.address
+    @tournament_place = tournament.address
     mail to: user.email, :subject => "Inscription au Tournois !"
   end
 

@@ -16,6 +16,11 @@ RailsGame::Application.routes.draw do
   resources :tournaments
   resources :matches
 
+  namespace :admin do
+    get '', to: 'dashboard#index', as: '/'
+    match 'search', to: 'search#index', as: :search
+  end
+
   devise_scope :user do
     get 'signup', :to => 'devise/registrations#new'
     get 'login', :to => 'devise/sessions#new'
