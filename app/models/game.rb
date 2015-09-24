@@ -35,13 +35,15 @@ class Game < ActiveRecord::Base
   end
 
   def self.most_played_games
-    sql = "Select g.name, count(m.id) from games g left outer join matches m on m.game_id = g.id group by g.id order by count(m.id) desc"
-    return ActiveRecord::Base.connection.exec_query(sql).rows
+    # sql = "Select g.name, count(m.id) from games g left outer join matches m on m.game_id = g.id group by g.id order by count(m.id) desc"
+    # return ActiveRecord::Base.connection.exec_query(sql).rows
+    Game.joins(:matches).select("games.name, count(matches.game_id) as total_matches").group("games.name")
   end
 
   def self.best_grade_games
-    sql = "Select name, grade from games order by grade desc"
-    return ActiveRecord::Base.connection.exec_query(sql).rows
+    # sql = "Select name, grade from games order by grade desc"
+    # return ActiveRecord::Base.connection.exec_query(sql).rows
+    Game.order("grade desc")
   end
 
   def self.best_players_by_game
