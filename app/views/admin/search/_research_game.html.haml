@@ -1,0 +1,18 @@
+- if @games != nil && !@games.empty?
+  %h1 Games
+  %table.table.table-hover.table-condensed
+    %thead
+      %tr
+        %th Id
+        %th Name
+        %th Description
+        %th Company
+        %th Platform
+    -@games.each do |game|
+      %tr
+        %td= game[0]
+        %td= game[1]
+        %td= game[2]
+        %td= game[3]
+        %td= game[4]
+  = will_paginate(@games,:param_name => "games_page", :params => {:controller => "search", :action => "research"}, :remote => true)

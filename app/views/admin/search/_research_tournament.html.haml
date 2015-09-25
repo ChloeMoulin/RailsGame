@@ -1,0 +1,16 @@
+- if @tournaments != nil && !@tournaments.empty?
+  %h1 Tournaments
+  %table.table.table-hover.table-condensed
+    %thead
+      %tr
+        %th Id
+        %th Name
+        %th Description
+        %th Address
+    -@tournaments.each do |tournament|
+      %tr
+        %td= tournament[0]
+        %td= tournament[1]
+        %td= tournament[2]
+        %td= tournament[3]
+  = will_paginate(@tournaments,:param_name => "tournaments_page", :params => {:controller => "search", :action => "research"}, :remote => true)
