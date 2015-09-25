@@ -8,7 +8,7 @@ development:
   database: RailsGame_dev 
   pool: 5
   timeout: 5000
-  username: alexO
+  username: postgres
   password: chocolat
 
 # Warning: The database defined as "test" will be erased and
@@ -19,7 +19,7 @@ test:
   database: RailsGame_test
   pool: 5
   timeout: 5000
-  username: alexO
+  username: postgres
   password: chocolat
 
 production:
@@ -27,5 +27,5 @@ production:
   database: RailsGame_prod
   pool: 5
   timeout: 5000
-  username: alexO
+  username: postgres
   password: chocolat

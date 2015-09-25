@@ -35,15 +35,3 @@
       %td= row["victories"]
       %td= row["ratio"]
 
-%h1 Best Players by game
-%table.table.table-hover.table-condensed
-  %thead
-    %tr
-      %th Username
-      %th Victories
-  - @best_players_by_game.each do |key,value|
-    %h3= key
-    - value.each do |player,victories|
-      %tr
-        %td= player
-        %td= victories

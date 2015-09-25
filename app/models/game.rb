@@ -37,7 +37,7 @@ class Game < ActiveRecord::Base
   def self.most_played_games
     # sql = "Select g.name, count(m.id) from games g left outer join matches m on m.game_id = g.id group by g.id order by count(m.id) desc"
     # return ActiveRecord::Base.connection.exec_query(sql).rows
-    Game.joins(:matches).select("games.name, count(matches.game_id) as total_matches").group("games.name")
+    Game.joins(:matches).select("games.name, count(*) as total_matches").group("games.name")
   end
 
   def self.best_grade_games
@@ -56,6 +56,11 @@ class Game < ActiveRecord::Base
       end
     ]
     return result
+  end
+
+  def self.get_game_like(text)
+    sql = "Select id, name, description, company, platform from games where (name like '%#{text}%' or description like '%#{text}%' or platform like '%#{text}%' or company like '%#{text}%' )"
+    return ActiveRecord::Base.connection.exec_query(sql).rows
   end
 
 end

@@ -4,7 +4,8 @@
 
 :javascript
 
-  function start_search(value) {
+  function start_search() {
+    var value = $("#search").val();
     $.ajax({
       url: "/admin/research",
       type: "GET",
@@ -18,8 +19,10 @@
     $("#search").bind('keyup input',function() {
       var value = $( this ).val();
       timer && clearTimeout(timer);
-      timer = setTimeout(start_search(value), 250);
+      timer = setTimeout(start_search, 1000);
     });
   });
 
 %p#content_user
+%p#content_game
+%p#content_tournament

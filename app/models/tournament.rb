@@ -70,4 +70,10 @@ class Tournament < ActiveRecord::Base
     errors.add(:date, "Date must be higher or equal to today") if !date.blank? && date < Date.today
   end
 
+
+  def self.get_tournament_like(text)
+    sql = "Select id, name, description, address from tournaments where (name like '%#{text}%' or description like '%#{text}%' or address like '%#{text}%')"
+    return ActiveRecord::Base.connection.exec_query(sql).rows
+  end
+
 end
