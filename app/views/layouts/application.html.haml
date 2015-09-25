@@ -33,6 +33,15 @@
                 %ul.dropdown-menu
                   %li= link_to "View All",tournaments_path
               - if user_signed_in?
+                - if current_user.role = "admin"
+                  %li.dropdown
+                    %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+                      %span.glyphicon.glyphicon-cog
+                      Admin
+                      %b.caret
+                    %ul.dropdown-menu
+                      %li= link_to "Analytics", "/admin/"
+                      %li= link_to "Search", "/admin/search"
                 %li.dropdown
                   %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
                     %span.glyphicon.glyphicon-user
