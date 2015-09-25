@@ -4,10 +4,10 @@
     %tr
       %th Name
       %th Matches played
-  - @most_played_games.each do |game, matches|
+  - @most_played_games.each do |game|
     %tr
-      %td= game
-      %td= matches
+      %td= game.name
+      %td= game["total_matches"]
 
 %h1 Best Grades
 %table.table.table-hover.table-condensed
@@ -15,10 +15,10 @@
     %tr
       %th Name
       %th Grade
-  - @best_grade_games.each do |game, grade|
+  - @best_grade_games.each do |game|
     %tr
-      %td= game
-      %td= grade
+      %td= game.name
+      %td= game.grade
 
 %h1 Best Players
 %table.table.table-hover.table-condensed
@@ -30,10 +30,10 @@
       %th Ratio
   - @best_players.each do |row|
     %tr
-      %td= row[0]
-      %td= row[1]
-      %td= row[2]
-      %td= row[3]
+      %td= row["username"]
+      %td= row["score"]
+      %td= row["victories"]
+      %td= row["ratio"]
 
 %h1 Best Players by game
 %table.table.table-hover.table-condensed

@@ -107,4 +107,5 @@ class Match < ActiveRecord::Base
     Notifier.match_score(self.player_2,self.player_1,self.game,self.tournament,self).deliver
   end
 
+
 end

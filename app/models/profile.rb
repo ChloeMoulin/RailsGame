@@ -59,8 +59,10 @@ class Profile < ActiveRecord::Base
   end
 
   def self.best_players
-    sql = "Select username, score, victories, ratio from users inner join profiles on users.id = profiles.user_id order by score desc"
-    return ActiveRecord::Base.connection.exec_query(sql).rows
+    # sql = "Select username, score, victories, ratio from users inner join profiles on users.id = profiles.user_id order by score desc"
+    # return ActiveRecord::Base.connection.exec_query(sql).rows
+    #Profile.includes(:user).order(:score)
+    Profile.joins(:user).select("users.username as username, score, ratio, victories").order("score desc")
   end
 
 
