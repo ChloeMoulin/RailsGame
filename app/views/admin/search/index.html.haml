@@ -1,0 +1,25 @@
+= form_tag("/search_research", method: :get, :remote => true , class: " navbar-form") do 
+  = text_field_tag :search, params[:search], placeholder: "users, games, tournaments", class: "form-control"
+  = submit_tag "Find", name: nil, :class => "btn btn-primary"
+
+:javascript
+
+  function start_search(value) {
+    $.ajax({
+      url: "/admin/research",
+      type: "GET",
+      data: { text: value }
+  });
+
+  }
+
+  $(function() {
+    var timer;
+    $("#search").bind('keyup input',function() {
+      var value = $( this ).val();
+      timer && clearTimeout(timer);
+      timer = setTimeout(start_search(value), 250);
+    });
+  });
+
+%p#content_user

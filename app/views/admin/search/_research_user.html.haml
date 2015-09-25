@@ -1,0 +1,13 @@
+%h1 Users
+%table.table.table-hover.table-condensed
+  %thead
+    %tr
+      %th Id
+      %th Username
+      %th Email
+  - if @users != nil && !@users.empty?
+    -@users.each do |user|
+      %tr
+        %td= user[0]
+        %td= user[1]
+        %td= user[2]

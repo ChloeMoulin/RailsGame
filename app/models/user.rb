@@ -83,4 +83,9 @@ class User < ActiveRecord::Base
     def send_mail_registration
       Notifier.inscription(self).deliver
     end
+
+    def self.get_user_like(text)
+      sql = "Select * from users where (username like '%#{text}%' or email like '%#{text}%')"
+      return ActiveRecord::Base.connection.exec_query(sql).rows
+    end
 end

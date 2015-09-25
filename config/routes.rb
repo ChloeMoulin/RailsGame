@@ -19,6 +19,7 @@ RailsGame::Application.routes.draw do
   namespace :admin do
     get '', to: 'dashboard#index', as: '/'
     match 'search', to: 'search#index', as: :search
+    match '/research' => 'search#research', as: :search_research
   end
 
   devise_scope :user do
