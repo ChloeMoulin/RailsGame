@@ -1,3 +1,6 @@
 $('#content_user').html("<%= escape_javascript(render('research_user')) %>");
 $('#content_game').html("<%= escape_javascript(render('research_game')) %>");
 $('#content_tournament').html("<%= escape_javascript(render('research_tournament')) %>");
+
+
+ $('.pagination a').attr('data-remote', 'true');

@@ -11,3 +11,4 @@
         %td= user[0]
         %td= user[1]
         %td= user[2]
+  = will_paginate(@users, :param_name => "users_page", :params => {:controller => "search", :action => "research"}, :remote => true)

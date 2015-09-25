@@ -31,6 +31,7 @@ gem 'geocoder'
 gem "better_errors"
 gem "binding_of_caller"
 
+gem 'will_paginate', '~> 3.0.6'
 
 
 # Bundle edge Rails instead:
